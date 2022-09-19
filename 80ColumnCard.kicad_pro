@@ -460,6 +460,14 @@
     [
       "167e0dc3-f820-4d48-81fb-4e2a58476c04",
       ""
+    ],
+    [
+      "e5c9c69e-ade0-42d4-b669-697a914703ea",
+      "SRAM"
+    ],
+    [
+      "15ac6103-309d-4a81-96bb-fbc0f816971e",
+      "Character ROM"
     ]
   ],
   "text_variables": {}
