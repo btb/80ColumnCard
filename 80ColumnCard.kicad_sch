@@ -10273,10 +10273,10 @@
       (reference "U20") (unit 1) (value "2732") (footprint "MyPackages:DIP-24_W15.24mm")
     )
     (path "/15ac6103-309d-4a81-96bb-fbc0f816971e/27838f98-1316-4603-a240-41da91d04d97"
-      (reference "U20B1") (unit 1) (value "'64 - '512") (footprint "Package_DIP:DIP-28_W15.24mm")
+      (reference "U20W28") (unit 1) (value "'64 - '512") (footprint "Package_DIP:DIP-28_W15.24mm")
     )
     (path "/15ac6103-309d-4a81-96bb-fbc0f816971e/3ec244dd-611e-4aba-a24f-a26ce82c0259"
-      (reference "U20C1") (unit 1) (value "'010 - '080") (footprint "Package_DIP:DIP-32_W15.24mm")
+      (reference "U20W32") (unit 1) (value "'010 - '080") (footprint "Package_DIP:DIP-32_W15.24mm")
     )
     (path "/d61c476b-b29a-4c9b-9e1b-ba0e591be6cf"
       (reference "U21") (unit 1) (value "74LS166") (footprint "MyPackages:DIP-16_W7.62mm")
