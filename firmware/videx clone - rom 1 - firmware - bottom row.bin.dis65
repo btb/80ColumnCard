@@ -642,7 +642,7 @@
 
 "LongComments":{
 "-2147483647":{
-"Text":"Videoterm clone firmware\r\n*\r\n6502bench SourceGen v1.8.4-dev1",
+"Text":"Videoterm clone firmware\r\n*\r\nVideoterm Interface\r\nFirmware v. 2.4\r\n\r\nWritten by Darrel Aldrich\r\n(c) 1981 Videx\r\n\r\n*\r\n6502bench SourceGen v1.8.4-dev1",
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
