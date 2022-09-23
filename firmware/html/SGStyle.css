@@ -1,0 +1,56 @@
+/*
+ * 6502bench SourceGen disassembly output style.
+ */
+
+/*
+ * General formatting.
+ */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;                /* 16 recommended for mobile */
+    padding: 0px;
+    margin: 20px 10px 10px 10px;    /* TRBL order */
+
+    /*
+     * For white text on black background, uncomment this, and
+     * update the link text colors below.
+     */
+    /* color: white;
+    background-color: black; */
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.greytext {
+    color: grey;
+}
+
+/*
+ * Blue underlined text is distracting.  Change internal links to be
+ * plain black text until they're hovered over.
+ */
+a[href^="#"]:link, a[href^="#"]:visited {
+    color: black;
+    text-decoration: none;
+}
+a[href^="#"]:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+/*
+ * Put a border around visualizations.  Disable smoothing so they don't
+ * blur out.
+ *
+ * Pixelated rendering works in Chrome, Safari, and IE11, but doesn't in
+ * current versions of Edge and Firefox.  We could do it with Javascript
+ * Canvas (e.g. https://stackoverflow.com/a/19129822/294248), or by
+ * generating scaled thumbnail files directly.
+ */
+.vis {
+    border: 1px solid gray;
+
+    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: pixelated;
+}

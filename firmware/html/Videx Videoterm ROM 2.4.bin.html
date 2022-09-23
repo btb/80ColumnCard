@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="SGStyle.css"/>
+
+    <meta name="description" content="SourceGen-generated disassembly of Videx Videoterm ROM 2.4.bin"/>
+    <title>Videx Videoterm ROM 2.4.bin Disassembly</title>
+</head>
+
+<body>
+
+<p style="font-size:smaller;"><a href="./">(back to project page)</a></p>
+<h1>Videx Videoterm ROM 2.4.bin Disassembly</h1>
+
+<div id="code-lines">
+    <!-- The CodeLines marker is not optional, and may only appear once -->
+<pre>********************************************************************************
+*                                                                              *
+* Videoterm Interface                                                          *
+* Firmware v. 2.4                                                              *
+*                                                                              *
+* Written by Darrel Aldrich                                                    *
+* (c) 1981 Videx                                                               *
+*                                                                              *
+********************************************************************************
+* 6502bench SourceGen v1.8.4-dev1                                              *
+********************************************************************************
+<span id="SymMON_CH">MON_CH</span>          .eq     $24               ;cursor horizontal displacement
+<span id="SymMON_CV">MON_CV</span>          .eq     $25               ;cursor vertical displacement
+<span id="SymMON_BASL">MON_BASL</span>        .eq     $28               ;base address for text output (lo)
+<span id="SymXSAVE">XSAVE</span>           .eq     $35               ;not used by monitor?
+<span id="SymMON_CSWL">MON_CSWL</span>        .eq     $36               ;character output hook (lo)
+<span id="SymMON_CSWH">MON_CSWH</span>        .eq     $37               ;character output hook (hi)
+<span id="SymMON_KSWL">MON_KSWL</span>        .eq     $38               ;character input hook (lo)
+<span id="SymMON_KSWH">MON_KSWH</span>        .eq     $39               ;character input hook (hi)
+<span id="SymMON_RNDL">MON_RNDL</span>        .eq     $4e               ;low byte of KEYIN "random" value
+<span id="SymMON_RNDH">MON_RNDH</span>        .eq     $4f               ;high byte of KEYIN "random" value
+<span id="SymIN">IN</span>              .eq     $0200
+<span id="SymCRFLAG">CRFLAG</span>          .eq     $0478             ;temp
+<span id="SymBASEL">BASEL</span>           .eq     $047b             ;Screen base address low
+<span id="SymASAV1">ASAV1</span>           .eq     $04f8             ;temp
+<span id="SymBASEH">BASEH</span>           .eq     $04fb             ;Screen base address high
+<span id="SymCHORZ">CHORZ</span>           .eq     $057b             ;Cursor horizontal position
+<span id="SymTEMPX">TEMPX</span>           .eq     $05f8             ;temp
+<span id="SymCVERT">CVERT</span>           .eq     $05fb             ;Cursor vertical position
+<span id="SymOLDCHAR">OLDCHAR</span>         .eq     $0678             ;temp
+<span id="SymBYTE">BYTE</span>            .eq     $067b             ;I/O byte for Pascal entries
+<span id="SymSTART">START</span>           .eq     $06fb             ;Screen start address
+<span id="SymPOFF">POFF</span>            .eq     $077b             ;Power off and lead in counter
+<span id="SymFLAGS">FLAGS</span>           .eq     $07fb             ;Video set up flags
+<span id="SymKBD">KBD</span>             .eq     $c000             ;R last key pressed + 128
+<span id="SymKBDSTRB">KBDSTRB</span>         .eq     $c010             ;RW keyboard strobe
+<span id="SymSPKR">SPKR</span>            .eq     $c030             ;RW toggle speaker
+<span id="SymSETAN0">SETAN0</span>          .eq     $c058             ;RW annunciator 0 off
+<span id="SymCLRAN0">CLRAN0</span>          .eq     $c059             ;RW annunciator 0 on
+<span id="SymBUTN2">BUTN2</span>           .eq     $c063             ;R switch input 2 / shift key
+<span id="SymDEV0">DEV0</span>            .eq     $c0b0             ;I/O device 0
+<span id="SymDEV1">DEV1</span>            .eq     $c0b1             ;I/O device 1
+<span id="SymDISP0">DISP0</span>           .eq     $cc00
+<span id="SymDISP1">DISP1</span>           .eq     $cd00
+<span id="SymCLRROM">CLRROM</span>          .eq     $cfff             ;disable slot C8 ROM
+<span id="SymMON_VTAB">MON_VTAB</span>        .eq     $fc22             ;tab to row specified in CV
+<span id="SymMON_SETKBD">MON_SETKBD</span>      .eq     $fe89             ;reset char input handler to ROM
+<span id="SymMON_SETVID">MON_SETVID</span>      .eq     $fe93             ;reset char output handler to ROM
+<span id="SymIORTS">IORTS</span>           .eq     $ffcb
+
+********************************************************************************
+*                                                                              *
+* Set up CRTC and clear screen                                                 *
+*                                                                              *
+********************************************************************************
+                .addrs  $c800
+<span id="SymSETUP">SETUP</span>           lda     <a href="#SymPOFF">POFF</a>              ;Get power off flag
+                and     #$f8              ;Strip off lead in counters
+                cmp     #$30              ;Has power been turned off?
+                beq     <a href="#SymSETEXIT">SETEXIT</a>
+<span id="SymRESTART">RESTART</span>         lda     #$30
+                sta     <a href="#SymPOFF">POFF</a>              ;Set defaults for flags
+                sta     <a href="#SymFLAGS">FLAGS</a>
+                lda     #$00
+                sta     <a href="#SymSTART">START</a>
+                jsr     <a href="#SymCLSCRN">CLSCRN</a>
+                ldx     #$00
+<span id="SymLOOP">LOOP</span>            txa
+                sta     <a href="#SymDEV0">DEV0</a>              ;For the CRTC address
+                lda     <a href="#SymTABLE">TABLE</a>,x           ;Get parameter
+                sta     <a href="#SymDEV1">DEV1</a>              ;Store into CRTC
+                inx
+                cpx     #$10
+                bne     <a href="#SymLOOP">LOOP</a>              ;Continue loop until done
+<span id="SymSETEXIT">SETEXIT</span>         sta     <a href="#SymCLRAN0">CLRAN0</a>
+                rts
+
+<span id="SymEXIT">EXIT</span>            lda     <a href="#SymFLAGS">FLAGS</a>
+                and     #$08
+                beq     <a href="#SymNORMOUT">NORMOUT</a>
+                jsr     <a href="#SymMON_SETVID">MON_SETVID</a>
+                jsr     <a href="#SymMON_VTAB">MON_VTAB</a>
+                jsr     <a href="#SymMON_SETKBD">MON_SETKBD</a>
+<span id="SymNORMOUT">NORMOUT</span>         pla                       ;Recover registers
+                tay
+                pla
+                tax
+                pla
+                rts
+
+********************************************************************************
+*                                                                              *
+* Get character from keyboard                                                  *
+********************************************************************************
+<span id="SymRDKEY">RDKEY</span>           jsr     <a href="#SymCSRMOV">CSRMOV</a>            ;Position cursor
+<span id="SymKEYIN">KEYIN</span>           inc     <a href="#SymMON_RNDL">MON_RNDL</a>          ;Update basic random number
+                bne     <a href="#SymKEYIN2">KEYIN2</a>
+                inc     <a href="#SymMON_RNDH">MON_RNDH</a>
+<span id="SymKEYIN2">KEYIN2</span>          lda     <a href="#SymKBD">KBD</a>               ;Poll keyboard
+                bpl     <a href="#SymKEYIN">KEYIN</a>             ;Loop until key is struck
+                jsr     <a href="#SymKEYSTAT">KEYSTAT</a>
+                bcc     <a href="#SymKEYIN">KEYIN</a>
+<span id="SymNOKEY">NOKEY</span>           bit     <a href="#SymKBDSTRB">KBDSTRB</a>           ;Clear keyboard stroke
+                clc
+                rts
+
+<span id="SymKEYSTAT">KEYSTAT</span>         cmp     #$8b              ;Check for control X
+                bne     <a href="#SymNOTK">NOTK</a>              ;Skip if not
+                lda     #$db              ;Substitute a right bracket
+<span id="SymNOTK">NOTK</span>            cmp     #$81              ;Check for control A
+                bne     <a href="#SymNTSHFT">NTSHFT</a>            ;Skip if not
+                lda     <a href="#SymFLAGS">FLAGS</a>
+                eor     #$40
+                sta     <a href="#SymFLAGS">FLAGS</a>             ;Toggle upr/lwr case flag
+                bcs     <a href="#SymNOKEY">NOKEY</a>             ;Get next key
+<span id="SymNTSHFT">NTSHFT</span>          pha                       ;Save character
+                lda     <a href="#SymFLAGS">FLAGS</a>
+                asl     A
+                asl     A                 ;Check upr/lwr case conversion flag
+                pla                       ;Restore character
+                bcc     <a href="#SymINDONE">INDONE</a>            ;Don't convert if flag clear
+                cmp     #$b0
+                bcc     <a href="#SymINDONE">INDONE</a>            ;Don't convert special characters
+                bit     <a href="#SymBUTN2">BUTN2</a>
+                bmi     <a href="#SymNOSHIFT">NOSHIFT</a>
+                cmp     #‘0’ | $80
+                beq     <a href="#SymZERO">ZERO</a>
+                cmp     #‘@’ | $80
+                bne     <a href="#SymNOTAT">NOTAT</a>
+                lda     #‘P’ | $80
+<span id="SymNOTAT">NOTAT</span>           cmp     #‘[’ | $80
+                bcc     <a href="#SymINDONE">INDONE</a>
+                and     #$cf
+                bne     <a href="#SymINDONE">INDONE</a>
+<span id="SymZERO">ZERO</span>            lda     #‘]’ | $80
+<span id="SymNOSHIFT">NOSHIFT</span>         ora     #$20
+<span id="SymINDONE">INDONE</span>          pha                       ;Duplicate character
+                and     #$7f              ;Strip off high bit
+                sta     <a href="#SymBYTE">BYTE</a>              ;Save for Pascal
+                pla                       ;Recover for Basic
+                sec
+                rts
+
+<span id="SymTABLE">TABLE</span>           .dd1    $7a
+                .dd1    $50
+                .dd1    $5e
+                .dd1    $2f
+                .dd1    $22
+                .dd1    $00
+                .dd1    $18
+                .dd1    $1d
+                .dd1    $00
+                .dd1    $08
+                .dd1    $e0
+                .dd1    $08
+                .dd1    $00
+                .dd1    $00
+                .dd1    $00
+                .dd1    $00
+
+********************************************************************************
+*                                                                              *
+* Secondary basic output routine                                               *
+*                                                                              *
+********************************************************************************
+<span id="SymBASOUT1">BASOUT1</span>         sta     <a href="#SymBYTE">BYTE</a>
+                lda     <a href="#SymMON_CV">MON_CV</a>
+                cmp     <a href="#SymCVERT">CVERT</a>
+                beq     <a href="#SymCVOK">CVOK</a>
+                sta     <a href="#SymCVERT">CVERT</a>
+                jsr     <a href="#SymVTAB">VTAB</a>
+<span id="SymCVOK">CVOK</span>            lda     <a href="#SymMON_CH">MON_CH</a>            ;Perform HTab
+                cmp     <a href="#SymCHORZ">CHORZ</a>
+                bcc     <a href="#SymPSCLOUT">PSCLOUT</a>
+                sta     <a href="#SymCHORZ">CHORZ</a>
+<span id="SymPSCLOUT">PSCLOUT</span>         lda     <a href="#SymBYTE">BYTE</a>              ;Get character
+                jsr     <a href="#SymOUTPT1">OUTPT1</a>            ;Output character
+<span id="SymCSRMOV">CSRMOV</span>          lda     #$0f              ;Set up CRTC address
+                sta     <a href="#SymDEV0">DEV0</a>              ;For cursor low address
+                lda     <a href="#SymCHORZ">CHORZ</a>             ;Calculate address
+                cmp     #80
+                bcs     <a href="#SymRTS6">RTS6</a>
+                adc     <a href="#SymBASEL">BASEL</a>
+                sta     <a href="#SymDEV1">DEV1</a>              ;Save address
+                lda     #$0e              ;Set up CRTC address
+                sta     <a href="#SymDEV0">DEV0</a>              ;For cursor high address
+                lda     #$00              ;Calculate address
+                adc     <a href="#SymBASEH">BASEH</a>
+                sta     <a href="#SymDEV1">DEV1</a>              ;Save address
+<span id="SymRTS6">RTS6</span>            rts
+
+********************************************************************************
+*                                                                              *
+* Perform escape functions                                                     *
+********************************************************************************
+<span id="SymESC1">ESC1</span>            eor     #$c0
+                cmp     #$08
+                bcs     <a href="#SymRTS3">RTS3</a>
+                tay
+                lda     #&gt;<a href="#SymBELL">BELL</a>
+                pha
+                lda     <a href="#SymESCTBL">ESCTBL</a>,y
+                pha
+                rts
+
+                nop
+<span id="SymCLREOL">CLREOL</span>          ldy     <a href="#SymCHORZ">CHORZ</a>             ;Put cursor horizontal into Y
+<span id="SymCLEOLZ">CLEOLZ</span>          lda     #$a0              ;Use a space
+<span id="SymCLEOL2">CLEOL2</span>          jsr     <a href="#SymCHRPUT">CHRPUT</a>            ;Put character on screen
+                iny
+                cpy     #80               ;Continue until
+                bcc     <a href="#SymCLEOL2">CLEOL2</a>            ;Y &gt;= 80
+                rts
+
+<span id="SymLEADIN">LEADIN</span>          lda     #$34              ;Set lead in bit
+<span id="SymPSAVE">PSAVE</span>           sta     <a href="#SymPOFF">POFF</a>
+<span id="SymRTS3">RTS3</span>            rts
+
+<span id="SymGOXY1">GOXY1</span>           lda     #$32              ;Set lead in count to 2
+                bne     <a href="#SymPSAVE">PSAVE</a>
+
+<span id="SymBELL">BELL</span>            ldy     #$c0              ;Beep the speaker
+<span id="SymBELL1">BELL1</span>           ldx     #$80
+<span id="SymBELL2">BELL2</span>           dex
+                bne     <a href="#SymBELL2">BELL2</a>
+                lda     <a href="#SymSPKR">SPKR</a>
+                dey
+                bne     <a href="#SymBELL1">BELL1</a>
+                rts
+
+********************************************************************************
+* Store character on screen and advance cursor                                 *
+********************************************************************************
+<span id="SymSTOADV">STOADV</span>          ldy     <a href="#SymCHORZ">CHORZ</a>
+                cpy     #80
+                bcc     <a href="#SymNOT81">NOT81</a>
+                pha
+                jsr     <a href="#SymCRLF">CRLF</a>
+                pla
+<span id="SymNOT81">NOT81</span>           ldy     <a href="#SymCHORZ">CHORZ</a>
+                jsr     <a href="#SymCHRPUT">CHRPUT</a>            ;Place character on screen
+<span id="SymADVANCE">ADVANCE</span>         inc     <a href="#SymCHORZ">CHORZ</a>             ;Increment cursor horizontal index
+                bit     <a href="#SymCRFLAG">CRFLAG</a>
+                bpl     <a href="#SymRTS8">RTS8</a>
+                lda     <a href="#SymCHORZ">CHORZ</a>
+                cmp     #80
+                bcs     <a href="#SymCRLF">CRLF</a>
+<span id="SymRTS8">RTS8</span>            rts
+
+********************************************************************************
+* Clear to end of page                                                         *
+********************************************************************************
+<span id="SymCLREOP">CLREOP</span>          ldy     <a href="#SymCHORZ">CHORZ</a>             ;Get cursor horizontal into Y
+                lda     <a href="#SymCVERT">CVERT</a>             ;Get cursor vertical into A
+<span id="SymCLEOP1">CLEOP1</span>          pha                       ;Save current line on stack
+                jsr     <a href="#SymVTABZ">VTABZ</a>             ;Calculate base address
+                jsr     <a href="#SymCLEOLZ">CLEOLZ</a>            ;Clear to end of line, set carry
+                ldy     #$00              ;Clear from horizontal index 0
+                pla
+                adc     #$00              ;Increment current line (C=1)
+                cmp     #24               ;Done to bottom of window?
+                bcc     <a href="#SymCLEOP1">CLEOP1</a>            ;If not keep clearing lines
+                bcs     <a href="#SymJVTAB">JVTAB</a>             ;Vertical tab to cursor position
+
+********************************************************************************
+* Clear screen                                                                 *
+********************************************************************************
+<span id="SymCLSCRN">CLSCRN</span>          jsr     <a href="#SymHOME">HOME</a>              ;Home cursor
+                tya
+                beq     <a href="#SymCLEOP1">CLEOP1</a>            ;Clear to end of page
+********************************************************************************
+* Home cursor                                                                  *
+********************************************************************************
+<span id="SymHOME">HOME</span>            lda     #$00              ;Set cursor position to 0,0
+                sta     <a href="#SymCHORZ">CHORZ</a>
+                sta     <a href="#SymCVERT">CVERT</a>
+                tay
+                beq     <a href="#SymJVTAB">JVTAB</a>             ;Vertical tab to cursor position
+<span id="SymBS">BS</span>              dec     <a href="#SymCHORZ">CHORZ</a>             ;Decrement cursor horizontal index
+                bpl     <a href="#SymRTS3">RTS3</a>              ;If pos, OK. Else move up
+                lda     #79               ;Set cursor horizontal to
+                sta     <a href="#SymCHORZ">CHORZ</a>             ;rightmost screen position
+********************************************************************************
+* Move cursor up                                                               *
+********************************************************************************
+<span id="SymUP">UP</span>              lda     <a href="#SymCVERT">CVERT</a>             ;Get cursor vertical index
+                beq     <a href="#SymRTS3">RTS3</a>              ;If top line then return
+                dec     <a href="#SymCVERT">CVERT</a>             ;Decrement cursor vertical index
+<span id="SymJVTAB">JVTAB</span>           jmp     <a href="#SymVTAB">VTAB</a>              ;Vertical tab to cursor position
+
+<span id="SymNOTGOXY">NOTGOXY</span>         lda     #$30              ;Clear lead in bits
+                sta     <a href="#SymPOFF">POFF</a>
+                pla                       ;Recover character
+                ora     #$80
+                cmp     #‘1’ | $80
+                bne     <a href="#SymNOT0">NOT0</a>
+                lda     #$08
+                sta     <a href="#SymSETAN0">SETAN0</a>
+                bne     <a href="#SymFLGSET">FLGSET</a>
+
+<span id="SymNOT1">NOT1</span>            cmp     #‘2’ | $80
+                bne     <a href="#SymNOT2">NOT2</a>
+<span id="SymLOLITE">LOLITE</span>          lda     #$fe
+<span id="SymFLGCLR">FLGCLR</span>          and     <a href="#SymFLAGS">FLAGS</a>
+<span id="SymFLGSAV">FLGSAV</span>          sta     <a href="#SymFLAGS">FLAGS</a>
+                rts
+
+********************************************************************************
+*                                                                              *
+* Pascal output entry point                                                    *
+*                                                                              *
+********************************************************************************
+<span id="SymPSOUT">PSOUT</span>           sta     <a href="#SymBYTE">BYTE</a>
+                lsr     <a href="#SymCRFLAG">CRFLAG</a>
+                jmp     <a href="#SymPSCLOUT">PSCLOUT</a>           ;Jump for Pascal entry
+
+********************************************************************************
+*                                                                              *
+* CR LF routine                                                                *
+********************************************************************************
+<span id="SymCRLF">CRLF</span>            jsr     <a href="#SymCR">CR</a>
+<span id="SymLF">LF</span>              inc     <a href="#SymCVERT">CVERT</a>             ;Increment cursor vertical
+                lda     <a href="#SymCVERT">CVERT</a>
+                cmp     #24               ;Off screen?
+                bcc     <a href="#SymVTABZ">VTABZ</a>             ;If not move cursor
+                dec     <a href="#SymCVERT">CVERT</a>             ;If so decrement cursor vertical
+; 
+                lda     <a href="#SymSTART">START</a>             ;Increment the start address
+                adc     #$04              ;by one line
+                and     #$7f
+                sta     <a href="#SymSTART">START</a>
+                jsr     <a href="#SymBASCLC1">BASCLC1</a>           ;Calculate the start address
+                lda     #$0d              ;Set up CRTC address
+                sta     <a href="#SymDEV0">DEV0</a>              ;For start low address
+                lda     <a href="#SymBASEL">BASEL</a>             ;Get start low
+                sta     <a href="#SymDEV1">DEV1</a>              ;Save start low
+                lda     #$0c              ;Set up CRTC address
+                sta     <a href="#SymDEV0">DEV0</a>              ;For start high address
+                lda     <a href="#SymBASEH">BASEH</a>             ;Get start high
+                sta     <a href="#SymDEV1">DEV1</a>              ;Save start high
+                lda     #23               ;Put window bottom-1 into A
+                jsr     <a href="#SymVTABZ">VTABZ</a>             ;Calculate base address
+                ldy     #$00
+                jsr     <a href="#SymCLEOLZ">CLEOLZ</a>            ;Clear bottom line
+                bcs     <a href="#SymJVTAB">JVTAB</a>             ;Move cursor back
+; 
+<span id="SymNOT2">NOT2</span>            cmp     #‘3’ | $80
+                bne     <a href="#SymJSTOADV">JSTOADV</a>
+<span id="SymHILITE">HILITE</span>          lda     #$01
+<span id="SymFLGSET">FLGSET</span>          ora     <a href="#SymFLAGS">FLAGS</a>
+                bne     <a href="#SymFLGSAV">FLGSAV</a>
+********************************************************************************
+*                                                                              *
+* Basic initial I/O entry point                                                *
+*                                                                              *
+*                                                                              *
+********************************************************************************
+<span id="SymNOT0">NOT0</span>            cmp     #‘0’ | $80
+                bne     <a href="#SymNOT1">NOT1</a>
+                jmp     <a href="#SymRESTART">RESTART</a>
+
+<span id="SymJSTOADV">JSTOADV</span>         jmp     <a href="#SymSTOADV">STOADV</a>
+
+<span id="SymVTAB">VTAB</span>            lda     <a href="#SymCVERT">CVERT</a>             ;Get cursor vertical
+<span id="SymVTABZ">VTABZ</span>           sta     <a href="#SymASAV1">ASAV1</a>             ;Multiply A by 5
+                asl     A
+                asl     A
+                adc     <a href="#SymASAV1">ASAV1</a>
+                adc     <a href="#SymSTART">START</a>             ;Add start
+<span id="SymBASCLC1">BASCLC1</span>         pha                       ;Save A
+                lsr     A                 ;Calculate BASEH
+                lsr     A
+                lsr     A
+                lsr     A
+                sta     <a href="#SymBASEH">BASEH</a>
+                pla                       ;Recover A
+                asl     A                 ;Calculate BASEL
+                asl     A
+                asl     A
+                asl     A
+                sta     <a href="#SymBASEL">BASEL</a>
+<span id="SymRTS2">RTS2</span>            rts
+
+<span id="SymVIDOUT">VIDOUT</span>          cmp     #$0d
+                bne     <a href="#SymVDOUT1">VDOUT1</a>
+<span id="SymCR">CR</span>              lda     #$00
+                sta     <a href="#SymCHORZ">CHORZ</a>
+                rts
+
+<span id="SymVDOUT1">VDOUT1</span>          ora     #$80              ;Set high bit
+                cmp     #$a0
+                bcs     <a href="#SymJSTOADV">JSTOADV</a>           ;If not control print it
+                cmp     #$87
+                bcc     <a href="#SymRTS4">RTS4</a>              ;CTRL @ - F
+                tay
+                lda     #&gt;<a href="#SymBELL">BELL</a>
+                pha
+                lda     <a href="#SymCTLTBL">CTLTBL</a>-135,y
+                pha
+<span id="SymRTS4">RTS4</span>            rts
+
+<span id="SymCTLTBL">CTLTBL</span>          .dd1    &lt;<a href="#SymBELL">BELL</a>-1
+                .dd1    &lt;<a href="#SymBS">BS</a>-1
+                .dd1    &lt;<a href="#SymRTS3">RTS3</a>-1
+                .dd1    &lt;<a href="#SymLF">LF</a>-1
+                .dd1    &lt;<a href="#SymCLREOP">CLREOP</a>-1
+                .dd1    &lt;<a href="#SymCLSCRN">CLSCRN</a>-1
+                .dd1    &lt;<a href="#SymCRLF">CRLF</a>-1
+                .dd1    &lt;<a href="#SymLOLITE">LOLITE</a>-1
+                .dd1    &lt;<a href="#SymHILITE">HILITE</a>-1
+                .dd1    &lt;<a href="#SymRTS3">RTS3</a>-1
+                .dd1    &lt;<a href="#SymRTS3">RTS3</a>-1
+                .dd1    &lt;<a href="#SymRTS3">RTS3</a>-1
+                .dd1    &lt;<a href="#SymRTS3">RTS3</a>-1
+                .dd1    &lt;<a href="#SymRTS3">RTS3</a>-1
+                .dd1    &lt;<a href="#SymRTS3">RTS3</a>-1
+                .dd1    &lt;<a href="#SymRTS3">RTS3</a>-1
+                .dd1    &lt;<a href="#SymRTS3">RTS3</a>-1
+                .dd1    &lt;<a href="#SymRTS3">RTS3</a>-1
+                .dd1    &lt;<a href="#SymHOME">HOME</a>-1
+                .dd1    &lt;<a href="#SymLEADIN">LEADIN</a>-1
+                .dd1    &lt;<a href="#SymRTS3">RTS3</a>-1
+                .dd1    &lt;<a href="#SymADVANCE">ADVANCE</a>-1
+                .dd1    &lt;<a href="#SymCLREOL">CLREOL</a>-1
+                .dd1    &lt;<a href="#SymGOXY1">GOXY1</a>-1
+                .dd1    &lt;<a href="#SymUP">UP</a>-1
+
+********************************************************************************
+* Calculate screen address and switch in correct page                          *
+*                                                                              *
+********************************************************************************
+<span id="SymPSNCALC">PSNCALC</span>         clc
+                tya
+                adc     <a href="#SymBASEL">BASEL</a>
+                pha
+                lda     #$00              ;Calculate screen address high
+                adc     <a href="#SymBASEH">BASEH</a>
+                pha
+                asl     A
+                and     #$0c              ;Use bit 0 and 1 for paging
+                tax
+                lda     <a href="#SymDEV0">DEV0</a>,x            ;Set correct screen page
+                pla
+                lsr     A
+                pla
+                tax
+                rts
+
+********************************************************************************
+*                                                                              *
+* Put a character at CVERT, CHORZ                                              *
+*                                                                              *
+********************************************************************************
+<span id="SymCHRPUT">CHRPUT</span>          asl     A
+                pha                       ;Save shifted character
+                lda     <a href="#SymFLAGS">FLAGS</a>             ;Get character set flag
+                lsr     A                 ;Shift it into carry
+                pla                       ;Recover shifted character
+                ror     A                 ;Rotate carry into character
+                pha                       ;Save character
+                jsr     <a href="#SymPSNCALC">PSNCALC</a>           ;Set up screen address
+                pla                       ;Recover character
+                bcs     <a href="#SymWRITE1">WRITE1</a>            ;Select memory range
+                sta     <a href="#SymDISP0">DISP0</a>,x           ;Store character on screen
+                bcc     <a href="#SymWSKIP">WSKIP</a>             ;Skip
+
+<span id="SymWRITE1">WRITE1</span>          sta     <a href="#SymDISP1">DISP1</a>,x           ;Store character on screen
+<span id="SymWSKIP">WSKIP</span>           rts                       ;Recover X register
+
+********************************************************************************
+*                                                                              *
+* General output routine                                                       *
+*                                                                              *
+********************************************************************************
+<span id="SymOUTPT1">OUTPT1</span>          pha                       ;Save character
+                lda     #$f7
+                jsr     <a href="#SymFLGCLR">FLGCLR</a>
+                sta     <a href="#SymCLRAN0">CLRAN0</a>
+                lda     <a href="#SymPOFF">POFF</a>
+                and     #$07              ;Check for lead in
+                bne     <a href="#SymLEAD">LEAD</a>              ;Branch for lead in
+                pla                       ;Recover character
+                jmp     <a href="#SymVIDOUT">VIDOUT</a>            ;Output character
+
+<span id="SymLEAD">LEAD</span>            and     #$04              ;Check for go to XY
+                beq     <a href="#SymGOXY3">GOXY3</a>             ;If not skip
+                jmp     <a href="#SymNOTGOXY">NOTGOXY</a>
+
+<span id="SymGOXY3">GOXY3</span>           pla                       ;Recover character
+                sec
+                sbc     #$20              ;Subtract 32
+                and     #$7f              ;Strip off unneeded bits
+                pha                       ;Save A
+                dec     <a href="#SymPOFF">POFF</a>              ;Decrement lead in counter
+                lda     <a href="#SymPOFF">POFF</a>
+                and     #$03              ;Get count
+                bne     <a href="#SymGOXY2">GOXY2</a>             ;Skip if count not zero
+                pla                       ;Recover A
+                cmp     #24               ;If A &gt; window bottom
+                bcs     <a href="#SymBADY">BADY</a>              ;Then don't move cursor vertical
+                sta     <a href="#SymCVERT">CVERT</a>
+<span id="SymBADY">BADY</span>            lda     <a href="#SymTEMPX">TEMPX</a>             ;Get cursor horizontal parameter
+                cmp     #80               ;If A &gt; 80 then
+                bcs     <a href="#SymBADX">BADX</a>              ;Don't move cursor horizontal
+                sta     <a href="#SymCHORZ">CHORZ</a>
+<span id="SymBADX">BADX</span>            jmp     <a href="#SymVTAB">VTAB</a>              ;Vertical tab to cursor position
+
+<span id="SymGOXY2">GOXY2</span>           pla                       ;Recover A
+                sta     <a href="#SymTEMPX">TEMPX</a>             ;Save cursor horizontal parameter
+                rts
+
+********************************************************************************
+*                                                                              *
+* Stop list routine                                                            *
+*                                                                              *
+********************************************************************************
+<span id="SymSTPLST">STPLST</span>          lda     <a href="#SymKBD">KBD</a>
+                cmp     #$93
+                bne     <a href="#SymSTPDONE">STPDONE</a>
+                bit     <a href="#SymKBDSTRB">KBDSTRB</a>
+<span id="SymSTPLOOP">STPLOOP</span>         lda     <a href="#SymKBD">KBD</a>
+                bpl     <a href="#SymSTPLOOP">STPLOOP</a>
+                cmp     #$83
+                beq     <a href="#SymSTPDONE">STPDONE</a>
+                bit     <a href="#SymKBDSTRB">KBDSTRB</a>
+<span id="SymSTPDONE">STPDONE</span>         rts
+
+<span id="SymESCNOW">ESCNOW</span>          tay
+                lda     <a href="#SymXLTBL">XLTBL</a>-201,y
+                jsr     <a href="#SymESC1">ESC1</a>
+<span id="SymESCNEW">ESCNEW</span>          jsr     <a href="#SymRDKEY">RDKEY</a>
+                cmp     #$ce
+                bcs     <a href="#SymESC2">ESC2</a>
+                cmp     #$c9
+                bcc     <a href="#SymESC2">ESC2</a>
+                cmp     #$cc
+                bne     <a href="#SymESCNOW">ESCNOW</a>
+<span id="SymESC2">ESC2</span>            jmp     <a href="#SymESC1">ESC1</a>
+
+                nop
+********************************************************************************
+*                                                                              *
+*                                                                              *
+*                                                                              *
+*                                                                              *
+* Basic inital I/O entry point                                                 *
+*                                                                              *
+********************************************************************************
+                bit     <a href="#SymIORTS">IORTS</a>             ;Set VFlag on initial entry
+                bvs     <a href="#SymENTR">ENTR</a>
+<span id="SymINFAKE">INFAKE</span>          sec                       ;Fake input entry C=0
+                .dd1    $90
+<span id="SymOUTENTR">OUTENTR</span>         clc                       ;Output entry C=1
+                clv
+                bvc     <a href="#SymENTR">ENTR</a>
+
+                .dd1    $01
+                .dd1    $82
+                .dd1    &lt;<a href="#SymINIT">INIT</a>
+                .dd1    &lt;<a href="#SymREAD">READ</a>
+                .dd1    &lt;<a href="#SymWRITE">WRITE</a>
+                .dd1    &lt;<a href="#SymSTATUS">STATUS</a>
+
+<span id="SymINIT">INIT</span>            jmp     <a href="#SymSETUP">SETUP</a>
+
+<span id="SymREAD">READ</span>            jsr     <a href="#SymRDKEY">RDKEY</a>
+                and     #$7f
+                ldx     #$00
+                rts
+
+<span id="SymWRITE">WRITE</span>           jsr     <a href="#SymPSOUT">PSOUT</a>
+                ldx     #$00
+                rts
+
+<span id="SymSTATUS">STATUS</span>          cmp     #$00
+                beq     <a href="#SymSTEXIT">STEXIT</a>
+                lda     <a href="#SymKBD">KBD</a>
+                asl     A
+                bcc     <a href="#SymSTEXIT">STEXIT</a>
+                jsr     <a href="#SymKEYSTAT">KEYSTAT</a>
+<span id="SymSTEXIT">STEXIT</span>          ldx     #$00
+                rts
+
+********************************************************************************
+* Basic input entry point                                                      *
+********************************************************************************
+<span id="SymINENTR">INENTR</span>          sta     (<a href="#SymMON_BASL">MON_BASL</a>),y      ;Replace flashing cursor
+                sec
+                clv
+<span id="SymENTR">ENTR</span>            sta     <a href="#SymCLRROM">CLRROM</a>            ;Turn off co-resident memory
+********************************************************************************
+*                                                                              *
+*                                                                              *
+* Save registers, set up NO and CN                                             *
+*                                                                              *
+********************************************************************************
+<span id="SymWHERE">WHERE</span>           pha                       ;Save registers on stack
+                sta     <a href="#SymXSAVE">XSAVE</a>
+                txa
+                pha
+                tya
+                pha
+                lda     <a href="#SymXSAVE">XSAVE</a>             ;Save character
+                stx     <a href="#SymXSAVE">XSAVE</a>             ;Save input buffer index
+                ldx     #$c3
+                stx     <a href="#SymCRFLAG">CRFLAG</a>
+                pha
+                bvc     <a href="#SymIO">IO</a>                ;Go to IO if not initial entry
+********************************************************************************
+*                                                                              *
+* Basic initialize                                                             *
+*                                                                              *
+********************************************************************************
+                lda     #&lt;<a href="#SymINENTR">INENTR</a>
+                sta     <a href="#SymMON_KSWL">MON_KSWL</a>
+                stx     <a href="#SymMON_KSWH">MON_KSWH</a>
+                lda     #&lt;<a href="#SymOUTENTR">OUTENTR</a>
+                sta     <a href="#SymMON_CSWL">MON_CSWL</a>
+                stx     <a href="#SymMON_CSWH">MON_CSWH</a>
+                jsr     <a href="#SymSETUP">SETUP</a>
+                clc
+<span id="SymIO">IO</span>              bcc     <a href="#SymBASOUT">BASOUT</a>
+********************************************************************************
+*                                                                              *
+* Basic input routine                                                          *
+*                                                                              *
+********************************************************************************
+<span id="SymBASINP">BASINP</span>          pla                       ;Pop stack
+                ldy     <a href="#SymXSAVE">XSAVE</a>             ;Get input buffer index
+                beq     <a href="#SymGETLN">GETLN</a>             ;If zero assume GETLN
+                dey
+                lda     <a href="#SymOLDCHAR">OLDCHAR</a>           ;Get last character from GETLN
+                cmp     #$88              ;If 8S assume GETLN
+                beq     <a href="#SymGETLN">GETLN</a>
+                cmp     <a href="#SymIN">IN</a>,y
+                beq     <a href="#SymGETLN">GETLN</a>
+                eor     #$20
+                cmp     <a href="#SymIN">IN</a>,y              ;If same as character in input
+                bne     <a href="#SymNTGETLN">NTGETLN</a>           ;Buffer then assume GETLN
+                lda     <a href="#SymOLDCHAR">OLDCHAR</a>           ;Get last character from GETLN
+                sta     <a href="#SymIN">IN</a>,y              ;Fix input buffer
+                bcs     <a href="#SymGETLN">GETLN</a>             ;Go to GETLN
+<span id="SymESC">ESC</span>             jsr     <a href="#SymESCNEW">ESCNEW</a>            ;Perform escape function
+<span id="SymGETLN">GETLN</span>           lda     #$80              ;Set GETLN flag
+                jsr     <a href="#SymFLGSET">FLGSET</a>
+                jsr     <a href="#SymRDKEY">RDKEY</a>             ;Get character from keyboard
+                cmp     #$9b              ;Check for escape
+                beq     <a href="#SymESC">ESC</a>
+                cmp     #$8d              ;Check for CR
+                bne     <a href="#SymNOTCR">NOTCR</a>             ;If not skip
+                pha                       ;Save character
+                jsr     <a href="#SymCLREOL">CLREOL</a>            ;Clear to end of line
+                pla                       ;Recover character
+<span id="SymNOTCR">NOTCR</span>           cmp     #$95              ;Check for pick
+                bne     <a href="#SymNOTPICK">NOTPICK</a>           ;If not skip
+                ldy     <a href="#SymCHORZ">CHORZ</a>             ;Get cursor horizontal position
+                jsr     <a href="#SymPSNCALC">PSNCALC</a>           ;Set up screen address
+                bcs     <a href="#SymREAD1">READ1</a>             ;Read character from screen
+                lda     <a href="#SymDISP0">DISP0</a>,x
+                bcc     <a href="#SymRSKIP">RSKIP</a>
+
+<span id="SymREAD1">READ1</span>           lda     <a href="#SymDISP1">DISP1</a>,x
+<span id="SymRSKIP">RSKIP</span>           ora     #$80              ;Set high bit
+<span id="SymNOTPICK">NOTPICK</span>         sta     <a href="#SymOLDCHAR">OLDCHAR</a>           ;Save character in OLDCHAR
+                bne     <a href="#SymDONE">DONE</a>              ;Exit
+
+<span id="SymNTGETLN">NTGETLN</span>         jsr     <a href="#SymRDKEY">RDKEY</a>             ;Get character from keyboard
+                ldy     #$00              ;Clear OLDCHARacter
+                sty     <a href="#SymOLDCHAR">OLDCHAR</a>
+<span id="SymDONE">DONE</span>            tsx                       ;Put character into stack
+                inx
+                inx
+                inx
+                sta     $0100,x
+<span id="SymOUTDONE1">OUTDONE1</span>        lda     #$00              ;Set CH = 00
+<span id="SymOUTDONE">OUTDONE</span>         sta     <a href="#SymMON_CH">MON_CH</a>
+                lda     <a href="#SymCVERT">CVERT</a>             ;Set CV = CVERT
+                sta     <a href="#SymMON_CV">MON_CV</a>
+                jmp     <a href="#SymEXIT">EXIT</a>
+
+********************************************************************************
+*                                                                              *
+* Primary Basic output routine                                                 *
+*                                                                              *
+********************************************************************************
+<span id="SymBASOUT">BASOUT</span>          pla                       ;Recover character
+                ldy     <a href="#SymFLAGS">FLAGS</a>             ;Check GETLN flags
+                bpl     <a href="#SymBOUT">BOUT</a>              ;If clear then skip
+                ldy     <a href="#SymOLDCHAR">OLDCHAR</a>           ;Get last character from GETLN
+                cpy     #$e0              ;If it is lower case then use it
+                bcc     <a href="#SymBOUT">BOUT</a>
+                tya
+<span id="SymBOUT">BOUT</span>            jsr     <a href="#SymBASOUT1">BASOUT1</a>           ;Output character
+                jsr     <a href="#SymSTPLST">STPLST</a>
+                lda     #$7f              ;Clear the GETLN flag
+                jsr     <a href="#SymFLGCLR">FLGCLR</a>
+                lda     <a href="#SymCHORZ">CHORZ</a>             ;Get cursor horizontal
+                sbc     #$47
+                bcc     <a href="#SymOUTDONE1">OUTDONE1</a>
+                adc     #$1f
+<span id="SymFIXCH">FIXCH</span>           clc
+                bcc     <a href="#SymOUTDONE">OUTDONE</a>
+
+<span id="SymESCTBL">ESCTBL</span>          .dd1    &lt;<a href="#SymCLSCRN">CLSCRN</a>-1
+                .dd1    &lt;<a href="#SymADVANCE">ADVANCE</a>-1
+                .dd1    &lt;<a href="#SymBS">BS</a>-1
+                .dd1    &lt;<a href="#SymLF">LF</a>-1
+                .dd1    &lt;<a href="#SymUP">UP</a>-1
+                .dd1    &lt;<a href="#SymCLREOL">CLREOL</a>-1
+                .dd1    &lt;<a href="#SymCLREOP">CLREOP</a>-1
+                .dd1    &lt;<a href="#SymHOME">HOME</a>-1
+<span id="SymXLTBL">XLTBL</span>           .dd1    $c4
+                .dd1    $c2
+                .dd1    $c1
+                .dd1    $ff
+                .dd1    $c3
+                .dd1    $ea
+                .adrend ↑ $c800
+</pre>
+
+
+</div>
+
+<!-- SymbolTable is optional; remove this entire section from the template if you don't want it -->
+<div id="symbol-table">
+    <h2>Symbol Table</h2>
+<p>No exported symbols found.</p>
+
+</div>
+
+<div id="footer">
+    <hr/>
+    <p>HTML generated by <a href="https://6502bench.com/">6502bench SourceGen</a> v1.8.4-dev1
+    on 2022/09/22 <!--21:55:56 -07:00--></p>
+    <p>Expression style: Common</p>
+    <!-- parameters: cols=16,8,18,100;extraCols=;byteSpc=True;commaBulk=True;nonuPfx='@';varPfx='';labelBrk=False;notes=False;gfx=True;opWrap=64 -->
+</div>
+
+</body>
+</html>
