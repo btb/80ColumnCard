@@ -34,8 +34,8 @@
         "other_text_upright": false,
         "pads": {
           "drill": 0.8,
-          "height": 1.5,
-          "width": 1.5
+          "height": 1.6,
+          "width": 1.6
         },
         "silk_line_width": 0.15,
         "silk_text_italic": false,
@@ -149,7 +149,10 @@
     "equivalence_files": []
   },
   "erc": {
-    "erc_exclusions": [],
+    "erc_exclusions": [
+      "multiple_net_names|5359400|787400|afad4cbb-e19b-43d8-a2c0-a650e710eabf|7818e7f9-9c0f-4c20-b01a-afbc6c3590f6",
+      "multiple_net_names|5359400|812800|762e1ef3-3f47-49a8-a60d-30a1229e9a02|21e467f8-d091-4ca9-a671-cd4f532b7867"
+    ],
     "meta": {
       "version": 0
     },
@@ -337,7 +340,7 @@
       "global_label_dangling": "warning",
       "hier_label_mismatch": "error",
       "label_dangling": "error",
-      "lib_symbol_issues": "warning",
+      "lib_symbol_issues": "ignore",
       "multiple_net_names": "warning",
       "net_not_bus_member": "warning",
       "no_connect_connected": "warning",

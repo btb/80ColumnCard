@@ -1779,6 +1779,12 @@
     (uuid fca0612a-5b75-4dab-9797-ef91473b6176)
   )
 
+  (text "Larger SRAM chips can be used for convenience, \nbut only 2KB is currently addressable."
+    (at 50.8 123.19 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid b785169b-271d-4ae7-83e3-ec66564bbaca)
+  )
+
   (hierarchical_label "RAMA1" (shape input) (at 25.4 76.2 180)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid 1532f4c2-8fa4-4835-9d9d-ed2960e6825a)
