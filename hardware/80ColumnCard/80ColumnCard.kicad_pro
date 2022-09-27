@@ -150,8 +150,9 @@
   },
   "erc": {
     "erc_exclusions": [
-      "multiple_net_names|5359400|787400|afad4cbb-e19b-43d8-a2c0-a650e710eabf|7818e7f9-9c0f-4c20-b01a-afbc6c3590f6",
-      "multiple_net_names|5359400|812800|762e1ef3-3f47-49a8-a60d-30a1229e9a02|21e467f8-d091-4ca9-a671-cd4f532b7867"
+      "multiple_net_names|584200|2946400|afad4cbb-e19b-43d8-a2c0-a650e710eabf|31277403-e778-45b7-afb5-3349feacef7b",
+      "multiple_net_names|584200|2971800|762e1ef3-3f47-49a8-a60d-30a1229e9a02|3e3f4696-770f-4c59-964d-b12862205630",
+      "power_pin_not_driven|762000|838200|5e44d31d-435c-431b-bd3b-24ba15c502ca|00000000-0000-0000-0000-000000000000"
     ],
     "meta": {
       "version": 0
