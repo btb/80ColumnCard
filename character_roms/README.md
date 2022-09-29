@@ -1,17 +1,17 @@
 # Character Generator ROMS
 
 The following files were taken from the Apple II Documentation Project:
-Videx Videoterm Character ROM APL.bin
-Videx Videoterm Character ROM Epson.bin
-Videx Videoterm Character ROM French.bin
-Videx Videoterm Character ROM German.bin
-Videx Videoterm Character ROM Inverse.bin
-Videx Videoterm Character ROM Katakana.bin
-Videx Videoterm Character ROM Normal Uppercase.bin
-Videx Videoterm Character ROM Normal.bin
-Videx Videoterm Character ROM Spanish.bin
-Videx Videoterm Character ROM Super and Subscript.bin
-Videx Videoterm Character ROM Symbol.bin
+* Videx Videoterm Character ROM APL.bin
+* Videx Videoterm Character ROM Epson.bin
+* Videx Videoterm Character ROM French.bin
+* Videx Videoterm Character ROM German.bin
+* Videx Videoterm Character ROM Inverse.bin
+* Videx Videoterm Character ROM Katakana.bin
+* Videx Videoterm Character ROM Normal Uppercase.bin
+* Videx Videoterm Character ROM Normal.bin
+* Videx Videoterm Character ROM Spanish.bin
+* Videx Videoterm Character ROM Super and Subscript.bin
+* Videx Videoterm Character ROM Symbol.bin
 
 Where they were accompanied by the following text:
 >==Videx Videoterm Fonts==
