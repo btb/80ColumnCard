@@ -1,4 +1,4 @@
-#Character Generator ROMS
+# Character Generator ROMS
 
 The following files were taken from the Apple II Documentation Project:
 Videx Videoterm Character ROM APL.bin
