@@ -27,4 +27,12 @@ Where they were accompanied by the following text:
 
 However the "Symbol" image appears to be entirely corrupted.
 
-Identically named files can be found elsewhere, such as mirrors of ftp.apple.asimov.net, however some of the files are different.
+Identically named files can be found elsewhere, such as mirrors of 
+ftp.apple.asimov.net, however some of the files are different.
+
+The file:
+* Videx Videoterm Character ROM Graphics.bin
+was taken from a mirror of ftp.apple.asimov.net, and it appears to be the 
+"Line Drawing Character Set" listed as Figure 5 in the manual, though it 
+also contains Japanese characters and the placements don't seem to 
+correspond with those in the manual.
