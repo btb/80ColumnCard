@@ -23,7 +23,7 @@ Where they were accompanied by the following text:
 >The only font that is not 100% accurate is the symbol font, as some characters were not correctly visible.
 >
 >Marc S. Ressl.-
->mressl@gmail.com
+>mressl@...
 
 However the "Symbol" image appears to be entirely corrupted.
 
