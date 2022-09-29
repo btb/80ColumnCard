@@ -1,0 +1,10 @@
+==Videx Videoterm Fonts==
+
+The binary font files in this folder were created from screenshots of the scanned Videx Videoterm manual.
+
+Most care was taken to verify them by comparing them overlaid to said screenshots.
+
+The only font that is not 100% accurate is the symbol font, as some characters were not correctly visible.
+
+Marc S. Ressl.-
+mressl@gmail.com
