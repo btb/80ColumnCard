@@ -1,34 +1,25 @@
 # Character Generator ROMS
 
-The following files were taken from the Apple II Documentation Project:
+The following files were extracted from the Videx Videoterm Utilities disk 1.3:
+* ascii.bin
+* ascii uc.bin
+* epson.bin
+* french.bin
+* german.bin
+* katakana.bin
+* norsk.bin
+* russian.bin
+* super & subscript.bin
+* symbol.bin
+
+These files were posted online and are believed to be dumps from genuine Videx Videoterm chips:
+* videx inverse - top left.bin
+* videx std 7x9 - top right.bin
+
+The following files were taken from the Apple II Documentation Project, 
+presumably hand-copied from the Videx Videoterm manual by Marc S. Ressl:
 * Videx Videoterm Character ROM APL.bin
-* Videx Videoterm Character ROM Epson.bin
-* Videx Videoterm Character ROM French.bin
-* Videx Videoterm Character ROM German.bin
-* Videx Videoterm Character ROM Inverse.bin
-* Videx Videoterm Character ROM Katakana.bin
-* Videx Videoterm Character ROM Normal Uppercase.bin
-* Videx Videoterm Character ROM Normal.bin
 * Videx Videoterm Character ROM Spanish.bin
-* Videx Videoterm Character ROM Super and Subscript.bin
-* Videx Videoterm Character ROM Symbol.bin
-
-Where they were accompanied by the following text:
->==Videx Videoterm Fonts==
->
->The binary font files in this folder were created from screenshots of the scanned Videx Videoterm manual.
->
->Most care was taken to verify them by comparing them overlaid to said screenshots.
->
->The only font that is not 100% accurate is the symbol font, as some characters were not correctly visible.
->
->Marc S. Ressl.-
->mressl@...
-
-However the "Symbol" image appears to be entirely corrupted.
-
-Identically named files can be found elsewhere, such as mirrors of 
-ftp.apple.asimov.net, however some of the files are different.
 
 The file:
 * Videx Videoterm Character ROM Graphics.bin
