@@ -4044,6 +4044,12 @@
   (gr_text "CHAR  SEL" (at 157.48 62.865) (layer "F.SilkS") (tstamp df09870c-8101-4232-848e-ca171841a431)
     (effects (font (size 1 1) (thickness 0.15)))
   )
+  (gr_text "C1: only needed for light pen or 2708" (at 201.295 132.715) (layer "F.Fab") (tstamp 142b6fd7-a018-4a8d-b294-d7a57e3e0fce)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text "C4: optional" (at 254.635 115.57) (layer "F.Fab") (tstamp 3611b497-d2e5-4950-99c8-d3ec7c00a464)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
 
   (segment (start 154.305 104.648) (end 154.305 109.855) (width 0.381) (layer "F.Cu") (net 1) (tstamp 072d6f08-06d9-41b3-ae02-1c1f1f96c8ce))
   (segment (start 162.56 116.84) (end 162.56 114.3) (width 0.381) (layer "F.Cu") (net 1) (tstamp 093af912-0690-4692-8c56-237cbd1b58b8))
