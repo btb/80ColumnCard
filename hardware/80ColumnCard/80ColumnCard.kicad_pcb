@@ -4,7 +4,11 @@
     (thickness 1.6)
   )
 
-  (paper "A4")
+  (paper "USLetter")
+  (title_block
+    (rev "0")
+  )
+
   (layers
     (0 "F.Cu" signal)
     (31 "B.Cu" signal)
@@ -83,7 +87,7 @@
       (mirror false)
       (drillshape 0)
       (scaleselection 1)
-      (outputdirectory "gerbers")
+      (outputdirectory "gerbers_${REVISION}")
     )
   )
 
@@ -1929,7 +1933,7 @@
       (options (clearance outline) (anchor circle))
       (primitives
         (gr_line (start 0.254 -0.5715) (end -2.2225 -0.4445) (width 0.1))
-    (gr_arc (start 1.535357 1.544921) (mid -0.867077 1.562872) (end -2.220191 -0.422348) (width 0.1))
+    (gr_arc (start 1.535357 1.544921) (mid -0.865104 1.563904) (end -2.219705 -0.41792) (width 0.1))
         (gr_line (start 0.254 -0.5715) (end 1.524 1.524) (width 0.1))
         (gr_poly (pts
             (xy 1.535357 1.544921)
@@ -1957,7 +1961,7 @@
             (gr_line (start -0.5715 0) (end 0.720183 2.106487) (width 0.1))
             (gr_line (start 0.720183 -2.106487) (end -0.5715 0) (width 0.1))
     (gr_arc (start 0.720183 -2.106487) (mid 1.541357 -1.196944) (end 1.84148 -0.00887) (width 0.1))
-    (gr_arc (start 1.8415 0) (mid 1.547018 1.186649) (end 0.732292 2.098283) (width 0.1))
+    (gr_arc (start 1.8415 0) (mid 1.548053 1.184689) (end 0.735952 2.095783) (width 0.1))
       ) (tstamp ffde7ae4-9fad-4748-a547-67d2b8dca1c9))
     (pad "3" smd custom (at -0.3556 -0.8128 90) (size 0.0254 0.0254) (layers "F.Cu" "F.Mask")
       (net 164 "/SRAM/RAMA11") (pinfunction "B") (pintype "passive")
