@@ -1961,7 +1961,7 @@
             (gr_line (start -0.5715 0) (end 0.720183 2.106487) (width 0.1))
             (gr_line (start 0.720183 -2.106487) (end -0.5715 0) (width 0.1))
     (gr_arc (start 0.720183 -2.106487) (mid 1.541357 -1.196944) (end 1.84148 -0.00887) (width 0.1))
-    (gr_arc (start 1.8415 0) (mid 1.548053 1.184689) (end 0.735952 2.095783) (width 0.1))
+    (gr_arc (start 1.8415 0) (mid 1.549086 1.182728) (end 0.739608 2.093276) (width 0.1))
       ) (tstamp ffde7ae4-9fad-4748-a547-67d2b8dca1c9))
     (pad "3" smd custom (at -0.3556 -0.8128 90) (size 0.0254 0.0254) (layers "F.Cu" "F.Mask")
       (net 164 "/SRAM/RAMA11") (pinfunction "B") (pintype "passive")
@@ -2638,7 +2638,7 @@
       (net 163 "/SRAM/RAMA4") (pinfunction "A8") (pintype "input") (tstamp 18d72bac-78ad-4e9e-bdbd-33347aa40630))
     (pad "24" thru_hole oval (at 15.24 0) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 5 "+5V") (pinfunction "VCC") (pintype "power_in") (tstamp b4ec9da1-7539-415c-9248-067a5f9fb83e))
-    (model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-24_W15.24mm.wrl" hide
+    (model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-24_W15.24mm.wrl"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -3651,7 +3651,7 @@
       (net 163 "/SRAM/RAMA4") (pinfunction "A8") (pintype "input") (tstamp c08bf4e7-35f0-4d75-8043-86850e585c38))
     (pad "24" thru_hole oval (at 7.62 0) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 5 "+5V") (pinfunction "VCC") (pintype "power_in") (tstamp 987b4625-e891-485b-b879-22d5558157a9))
-    (model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-24_W7.62mm.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-24_W7.62mm.wrl" hide
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
