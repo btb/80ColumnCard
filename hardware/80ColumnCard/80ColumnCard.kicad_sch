@@ -4,6 +4,10 @@
 
   (paper "A2")
 
+  (title_block
+    (rev "1")
+  )
+
   (lib_symbols
     (symbol "4xxx:4013" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
       (property "Reference" "U" (id 0) (at -7.62 8.89 0)
@@ -3409,7 +3413,6 @@
   )
 
   (bus_alias "AppleII" (members ))
-
   (junction (at 194.31 186.69) (diameter 0) (color 0 0 0 0)
     (uuid 029d2ebf-a1e6-48bd-b121-07cd260755a5)
   )
@@ -9968,6 +9971,9 @@
     (path "/15ac6103-309d-4a81-96bb-fbc0f816971e/fde164fa-dfa3-4933-bdcb-4cbd2a6b3f6f"
       (reference "#PWR0116") (unit 1) (value "GND") (footprint "")
     )
+    (path "/3653aa16-49ad-4f73-9584-b2d8a31551f4/53de8ae7-7d35-477d-9c53-d9a20ff75e4c"
+      (reference "#PWR0117") (unit 1) (value "+5V") (footprint "")
+    )
     (path "/0809b20b-3907-4c8b-b3c2-8f1cca2a0cfb"
       (reference "#PWR0118") (unit 1) (value "GND") (footprint "")
     )
@@ -10004,8 +10010,14 @@
     (path "/29d73d44-7869-4a1e-9719-5fc485c0a5b6"
       (reference "#PWR0129") (unit 1) (value "GND") (footprint "")
     )
+    (path "/3653aa16-49ad-4f73-9584-b2d8a31551f4/78355aa6-ade9-4953-83fc-93c02a0c03f8"
+      (reference "#PWR0130") (unit 1) (value "+5V") (footprint "")
+    )
     (path "/f745277f-d4b7-4281-be76-0772e3c4666c"
       (reference "#PWR0131") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/3653aa16-49ad-4f73-9584-b2d8a31551f4/ac5c842b-850f-4781-8393-7f51992e8c77"
+      (reference "#PWR0132") (unit 1) (value "+5V") (footprint "")
     )
     (path "/e5c9c69e-ade0-42d4-b669-697a914703ea/a0df59f9-4503-43f1-95e3-6b03dfe76028"
       (reference "#PWR0135") (unit 1) (value "GND") (footprint "")
@@ -10175,11 +10187,11 @@
     (path "/5dc499cf-807a-4b49-8469-91546109fb83"
       (reference "J2") (unit 1) (value "VIDEO & LIGHT PEN") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Horizontal")
     )
-    (path "/3653aa16-49ad-4f73-9584-b2d8a31551f4/9f10952b-85b8-4d29-82d9-c4db269f5aa8"
-      (reference "JP1") (unit 1) (value "A10") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical")
+    (path "/3653aa16-49ad-4f73-9584-b2d8a31551f4/2d325137-b0be-4c21-88dd-49a39518db22"
+      (reference "JP1") (unit 1) (value "A11") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical")
     )
-    (path "/3653aa16-49ad-4f73-9584-b2d8a31551f4/ceecdba2-9510-4d35-8da5-2f03008ae102"
-      (reference "JP2") (unit 1) (value "A11") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical")
+    (path "/3653aa16-49ad-4f73-9584-b2d8a31551f4/6407528f-005d-4542-b098-84928339fa9a"
+      (reference "JP2") (unit 1) (value "A10") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical")
     )
     (path "/15ac6103-309d-4a81-96bb-fbc0f816971e/60ece4ee-7f20-47e6-9418-8f030c50fad1"
       (reference "JP3") (unit 1) (value "A12") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical")
@@ -10193,11 +10205,11 @@
     (path "/15ac6103-309d-4a81-96bb-fbc0f816971e/fd1a6bc5-baa8-40db-bb39-33b865aa2157"
       (reference "JP6") (unit 1) (value "A15") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical")
     )
-    (path "/3653aa16-49ad-4f73-9584-b2d8a31551f4/1365a701-e4d1-4b91-9d90-a78ac7c6ece9"
-      (reference "JP7") (unit 1) (value "Jumper_2_Open") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical")
+    (path "/3653aa16-49ad-4f73-9584-b2d8a31551f4/1bd58b26-9814-42fb-afa0-378fc4c6b632"
+      (reference "JP7") (unit 1) (value "Jumper_3_Bridged12") (footprint "MyPassives:SolderJumper-3_Pie_Bridged12")
     )
-    (path "/3653aa16-49ad-4f73-9584-b2d8a31551f4/f2332470-42cb-40c3-8a72-a26f090d1300"
-      (reference "JP8") (unit 1) (value "Jumper_2_Open") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical")
+    (path "/3653aa16-49ad-4f73-9584-b2d8a31551f4/4672571d-0312-4637-8073-b8d82ed4de8d"
+      (reference "JP8") (unit 1) (value "Jumper_3_Bridged12") (footprint "MyPassives:SolderJumper-3_Pie_Bridged12")
     )
     (path "/5c0e70ea-1119-414b-9aa5-6f54e9ab44e4"
       (reference "Q1") (unit 1) (value "2N3904") (footprint "Package_TO_SOT_THT:TO-92")
@@ -10207,6 +10219,12 @@
     )
     (path "/eda385a2-09ff-4d91-9380-fbf25baf627d"
       (reference "R2") (unit 1) (value "220") (footprint "MyPassives:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+    )
+    (path "/3653aa16-49ad-4f73-9584-b2d8a31551f4/4b498954-0de9-4a3c-a690-e1b85ac5f604"
+      (reference "R3") (unit 1) (value "10K") (footprint "MyPassives:R_Axial_DIN0207_L6.3mm_D1.6mm_P10.16mm_Horizontal")
+    )
+    (path "/3653aa16-49ad-4f73-9584-b2d8a31551f4/217146a5-7526-40f8-a814-d38810c98db1"
+      (reference "R4") (unit 1) (value "10K") (footprint "MyPassives:R_Axial_DIN0207_L6.3mm_D1.6mm_P10.16mm_Horizontal")
     )
     (path "/4df7a16a-7051-45f7-b843-2f6b7dbd426b"
       (reference "R8") (unit 1) (value "1K") (footprint "MyPassives:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")

@@ -2,7 +2,11 @@
 
   (uuid 452bc601-bb2c-416b-b4b9-0c3a30228dad)
 
-  (paper "A4")
+  (paper "USLetter")
+
+  (title_block
+    (rev "1")
+  )
 
   (lib_symbols
     (symbol "Jumper:Jumper_3_Open" (pin_names (offset 0) hide) (in_bom yes) (on_board yes)
@@ -433,7 +437,6 @@
       )
     )
   )
-
 
   (junction (at 76.2 78.74) (diameter 0) (color 0 0 0 0)
     (uuid 0177bf25-e85b-4fce-ac76-3aa0d3d0b503)
