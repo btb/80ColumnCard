@@ -15,4 +15,4 @@ Confirmed working are: M27C64-20, AM2732A-2.
 This EPROM can hold one or two of the 2K [character sets](../../character_roms). A12-A15 are all permanently tied high, so only the top 4K of the EPROM is usable. The standard character set (e.g. "videx std 7x9 - top right.bin") goes in the lower 2K of that space, and any desired alternative character set (e.g. "videx inverse - top left.bin") goes in the upper 2K of that space.
 
 ## Other
-Although many of the TTL LS chips can be substituted with members of newer logic families (ACT, for example), U2 (74LS02) U4 (74LS04) and U6 (74LS00) must be LS or other TTL (non-CMOS) families.
+Although many of the TTL LS chips can be substituted with members of newer logic families (ACT, for example), U2 (74LS02) U4 (74LS04) U6 (74LS00) U23 (74LS161) must be LS or other TTL (non-CMOS) families.
