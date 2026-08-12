@@ -1,0 +1,1459 @@
+﻿### 6502bench SourceGen dis65 v1.0 ###
+{
+"_ContentVersion":7,
+"FileDataLength":1024,
+"FileDataCrc32":505038758,
+"ProjectProps":{
+"CpuName":"6502",
+"IncludeUndocumentedInstr":false,
+"TwoByteBrk":false,
+"EntryFlags":32702671,
+"AutoLabelStyle":"Simple",
+"AnalysisParams":{
+"AnalyzeUncategorizedData":true,
+"DefaultTextScanMode":"LowHighAscii",
+"MinCharsForString":4,
+"SeekNearbyTargets":false,
+"UseRelocData":false,
+"SmartPlpHandling":false,
+"SmartPlbHandling":true},
+
+"PlatformSymbolFileIdentifiers":["RT:Apple/F8-ROM.sym65",
+"RT:Apple/Cxxx-IO.sym65"],
+"ExtensionScriptFileIdentifiers":["RT:Apple/VisHiRes.cs"],
+"ProjectSyms":{
+"ASAV1":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"temp",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"ASAV1",
+"Value":1272,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"BASEH_BASE":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"Screen base address high",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"BASEH_BASE",
+"Value":1080,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"BASEL_BASE":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"Screen base address low",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"BASEL_BASE",
+"Value":952,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"BYTE_BASE":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"I/O byte for Pascal entries",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"BYTE_BASE",
+"Value":1464,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"CHORZ_BASE":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"Cursor horizontal position",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"CHORZ_BASE",
+"Value":1208,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"CVERT_BASE":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"Cursor vertical position",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"CVERT_BASE",
+"Value":1336,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"DEV0_BASE":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"CRTC Address Register",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"DEV0_BASE",
+"Value":49280,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"DEV1_BASE":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"CRTC Data Registers",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"DEV1_BASE",
+"Value":49281,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"DISP0":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"DISP0",
+"Value":52224,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"DISP1":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"DISP1",
+"Value":52480,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"FLAGS_BASE":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"Video set up flags",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"FLAGS_BASE",
+"Value":1848,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"IN":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"IN",
+"Value":512,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"IORTS":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"",
+"HasWidth":false,
+"Direction":"Read",
+"MultiMask":null,
+"Label":"IORTS",
+"Value":65483,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"OLDCHAR":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"temp",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"OLDCHAR",
+"Value":1656,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"POFF_BASE":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"Power off and lead in counter",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"POFF_BASE",
+"Value":1720,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"START_BASE":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"Screen start address",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"START_BASE",
+"Value":1592,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"TEMPX":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"temp",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"TEMPX",
+"Value":1528,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
+"XSAVE":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"not used by monitor?",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"XSAVE",
+"Value":53,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"}}},
+
+"AddressMap":[{
+"Offset":0,
+"Addr":51200,
+"Length":1024,
+"PreLabel":"",
+"DisallowInward":false,
+"DisallowOutward":false,
+"IsRelative":false}],
+"TypeHints":[{
+"Low":0,
+"High":0,
+"Hint":"Code"},
+
+{
+"Low":131,
+"High":134,
+"Hint":"InlineData"},
+
+{
+"Low":147,
+"High":150,
+"Hint":"InlineData"},
+
+{
+"Low":768,
+"High":768,
+"Hint":"Code"},
+
+{
+"Low":775,
+"High":775,
+"Hint":"Code"},
+
+{
+"Low":784,
+"High":784,
+"Hint":"Code"}],
+"StatusFlagOverrides":{
+},
+
+"MiscFlags":{
+},
+
+"Comments":{
+"0":"Get power off flag",
+"3":"Strip off lead in counters",
+"5":"Has power been turned off?",
+"11":"Set defaults for flags",
+"31":"For the CRTC address",
+"34":"Get parameter",
+"37":"Store into CRTC",
+"44":"Continue loop until done",
+"72":"Position cursor",
+"75":"Update basic random number",
+"80":"Poll keyboard",
+"83":"Loop until key is struck",
+"85":"Clear keyboard stroke",
+"88":"Check for control X",
+"90":"Skip if not",
+"92":"Substitute a right bracket",
+"94":"Check for control A",
+"96":"Skip if not",
+"103":"Toggle upr/lwr case flag",
+"106":"Get next key",
+"108":"Save character",
+"113":"Check upr/lwr case conversion flag",
+"114":"Restore character",
+"115":"Don\u0027t convert if flag clear",
+"123":"Duplicate character",
+"124":"Strip off high bit",
+"126":"Save for Pascal",
+"129":"Recover for Basic",
+"131":"R0 - Horizontal Total Register",
+"132":"R1 - Horizontal Displayed Register",
+"133":"R2 - Horizontal Sync Position Register",
+"134":"R3 - Horizontal Sync Width Register",
+"135":"R4 - Vertical Total Register",
+"136":"R5 - Vertical Total Adjust Register",
+"137":"R6 - Vertical Displayed Register",
+"138":"R7 - Vertical Sync Position Register",
+"139":"R8 - Interlace Mode Register",
+"140":"R9 - Maximum Scan Line Register",
+"141":"R10 - Cursor End Register",
+"142":"R11 - Cursor End Register",
+"143":"R12 - Start Address Register (H)",
+"144":"R13 - Start Address Register (L)",
+"145":"R14 - Cursor Register (H)",
+"146":"R15 - Cursor Register (L)",
+"179":"Perform HTab",
+"192":"Get character",
+"195":"Output character",
+"201":"Set up CRTC address",
+"203":"for cursor low address",
+"206":"Calculate address",
+"213":"Save address",
+"216":"Set up CRTC address",
+"218":"for cursor high address",
+"221":"Calculate address",
+"226":"Save address",
+"239":"Beep the speaker",
+"260":"Place character on screen",
+"263":"Increment cursor horizontal index",
+"285":"Set high bit",
+"289":"If not control print it",
+"293":"CTRL @ - F",
+"342":"Set lead in bit",
+"348":"Decrement cursor horizontal index",
+"351":"If pos, OK. Else move up",
+"353":"Set cursor horizontal to",
+"355":"rightmost screen position",
+"358":"Get cursor vertical index",
+"361":"If top line then return",
+"363":"Decrement cursor vertical index",
+"366":"Vertical tab to cursor position",
+"392":"Get cursor horizontal into Y",
+"395":"Get cursor vertical into A",
+"398":"Save current line on stack",
+"399":"Calculate base address",
+"419":"Home cursor",
+"423":"Clear to end of page",
+"429":"Set cursor position to 0,0",
+"438":"Vertical tab to cursor position",
+"446":"Increment cursor vertical",
+"452":"Off screen?",
+"454":"If not move cursor",
+"456":"If so decrement cursor vertical",
+"463":"Increment the start address",
+"466":"by one line",
+"473":"Calculate the start address",
+"476":"Set up CRTC address",
+"478":"for start low address",
+"481":"Get start low",
+"484":"Save start low",
+"487":"Set up CRTC address",
+"489":"for start high address",
+"492":"Get start high",
+"495":"Save start high",
+"498":"Put window bottom-1 into A",
+"502":"Calculate base address",
+"507":"Clear bottom line",
+"510":"Move cursor back",
+"533":"Put cursor horizontal into Y",
+"536":"Use a space",
+"538":"Put character on screen",
+"542":"Continue until",
+"544":"Y \u003e= 80",
+"547":"Get cursor vertical",
+"550":"Multiply A by 5",
+"559":"Add start",
+"562":"Save A",
+"563":"Calculate BASEH",
+"570":"Recover A",
+"571":"Calculate BASEL",
+"590":"Calculate screen address high",
+"597":"Use bit 0 and 1 for paging",
+"607":"Set correct screen page",
+"618":"Save shifted character",
+"619":"Get character set flag",
+"622":"Shift it into carry",
+"623":"Recover shifted character",
+"624":"Rotate carry into character",
+"625":"Save character",
+"626":"Set up screen address",
+"629":"Recover character",
+"630":"Select memory range",
+"632":"Store character on screen",
+"635":"Skip",
+"637":"Store character on screen",
+"640":"Recover X register",
+"644":"Save character",
+"654":"Check for lead in",
+"656":"Branch for lead in",
+"658":"Recover character",
+"659":"Output character",
+"662":"Check for go to XY",
+"664":"If not skip",
+"666":"Recover character",
+"667":"Subtract 32",
+"669":"Strip off unneeded bits",
+"671":"Save A",
+"672":"Decrement lead in counter",
+"678":"Get count",
+"680":"Skip if count not zero",
+"682":"Recover A",
+"683":"If A \u003e window bottom",
+"685":"Then don\u0027t move cursor vertical",
+"690":"Get cursor horizontal parameter",
+"693":"If A \u003e 80 then",
+"695":"don\u0027t move cursor horizontal",
+"700":"Vertical tab to cursor position",
+"703":"Recover A",
+"704":"Save cursor horizontal parameter",
+"708":"Clear lead in bits",
+"713":"Recover character",
+"768":"Set VFlag on initial entry",
+"777":"Turn off co-resident memory",
+"784":"Replace flashing cursor",
+"789":"Save registers on stack",
+"795":"Save input buffer index",
+"821":"Go to IO if not initial entry",
+"841":"Pop stack",
+"842":"Get input buffer index",
+"844":"If zero assume GETLN",
+"847":"Get last character from GETLN",
+"850":"If BS assume GETLN",
+"861":"If same as character in input",
+"864":"buffer then assume GETLN",
+"866":"Get last character from GETLN",
+"869":"Fix input buffer",
+"872":"Go to GETLN",
+"880":"Set GETLN flag",
+"885":"Get character from keyboard",
+"888":"Check for escape",
+"892":"Check for CR",
+"894":"If not skip",
+"896":"Save character",
+"897":"Clear to end of line",
+"900":"Recover character",
+"901":"Check for pick",
+"903":"If not skip",
+"905":"Get cursor horizontal position",
+"908":"Set up screen address",
+"911":"Read character from screen",
+"921":"Set high bit",
+"923":"Save character in OLDCHAR",
+"926":"Exit",
+"928":"Get character from keyboard",
+"931":"Clear OLDCHARacter",
+"936":"Put character into stack",
+"946":"Set CH = 00",
+"950":"Set CV = CVERT",
+"961":"Recover character",
+"962":"Check GETLN flags",
+"965":"If clear then skip",
+"967":"Get last character from GETLN",
+"970":"If it is lower case then use it",
+"975":"Output character",
+"978":"Clear the GETLN flag"},
+
+"LongComments":{
+"-2147483647":{
+"Text":"\r\nVideoterm Interface\r\nFirmware v. 2.1\r\n\r\nWritten by Darrel Aldrich\r\n(c) 1981 Videx\r\n\r\n*\r\n6502bench SourceGen v1.10.2",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"768":{
+"Text":"\r\n\r\n\r\n\r\nBasic initial I/O entry point\r\n\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"961":{
+"Text":"\r\nPrimary Basic output routine\r\n\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"841":{
+"Text":"\r\nBasic input routine\r\n\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"823":{
+"Text":"\r\nBasic initialize\r\n\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"784":{
+"Text":"Basic input entry point\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"789":{
+"Text":"\r\n\r\nSave registers, set up NO and CN\r\n\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"163":{
+"Text":"\r\nSecondary basic output routine\r\n\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"0":{
+"Text":"\r\nSet up CRTC and clear screen\r\n\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"72":{
+"Text":"\r\nGet character from keyboard",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"131":{
+"Text":"These are the CRTC initialization values, each one sent to a different internal register.",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"147":{
+"Text":"Values for other resolution I think\r\n",
+"IsFancy":false,
+"BoxMode":false,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"56":{
+"Text":"Sets window height depending on flag",
+"IsFancy":true,
+"BoxMode":false,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"358":{
+"Text":"Move cursor up",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"429":{
+"Text":"Home cursor",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"419":{
+"Text":"Clear screen\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"392":{
+"Text":"Clear to end of page\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"644":{
+"Text":"\r\nGeneral output routine\r\n\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"617":{
+"Text":"\r\nPut a character at CVERT, CHORZ\r\n\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"579":{
+"Text":"Calculate screen address and switch in correct page\r\n\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"441":{
+"Text":"\r\nCR LF routine\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"257":{
+"Text":"Store character on screen and advance cursor",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"999":{
+"Text":"\r\nStop list routine\r\n\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0}},
+
+"Notes":{
+},
+
+"UserLabels":{
+"777":{
+"Label":"ENTR",
+"Value":51977,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"918":{
+"Label":"READ1",
+"Value":52118,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"921":{
+"Label":"RSKIP",
+"Value":52121,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"923":{
+"Label":"NOTPICK",
+"Value":52123,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"936":{
+"Label":"DONE",
+"Value":52136,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"928":{
+"Label":"NTGETLN",
+"Value":52128,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"72":{
+"Label":"RDKEY",
+"Value":51272,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"961":{
+"Label":"BASOUT",
+"Value":52161,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"975":{
+"Label":"BOUT",
+"Value":52175,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"163":{
+"Label":"BASOUT1",
+"Value":51363,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"946":{
+"Label":"OUTDONE1",
+"Value":52146,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"994":{
+"Label":"FIXCH",
+"Value":52194,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"950":{
+"Label":"OUTDONE",
+"Value":52150,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"841":{
+"Label":"BASINP",
+"Value":52041,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"880":{
+"Label":"GETLN",
+"Value":52080,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"874":{
+"Label":"ESC",
+"Value":52074,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"901":{
+"Label":"NOTCR",
+"Value":52101,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"533":{
+"Label":"CLREOL",
+"Value":51733,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"536":{
+"Label":"CLEOLZ",
+"Value":51736,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"617":{
+"Label":"CHRPUT",
+"Value":51817,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"538":{
+"Label":"CLEOL2",
+"Value":51738,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"579":{
+"Label":"PSNCALC",
+"Value":51779,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"0":{
+"Label":"SETUP",
+"Value":51200,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"784":{
+"Label":"INENTR",
+"Value":51984,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"789":{
+"Label":"WHERE",
+"Value":51989,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"839":{
+"Label":"IO",
+"Value":52039,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"775":{
+"Label":"OUTENTR",
+"Value":51975,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"773":{
+"Label":"INFAKE",
+"Value":51973,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"179":{
+"Label":"CVOK",
+"Value":51379,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"547":{
+"Label":"VTAB",
+"Value":51747,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"189":{
+"Label":"PSCLOUT",
+"Value":51389,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"644":{
+"Label":"OUTPT1",
+"Value":51844,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"198":{
+"Label":"CSRMOV",
+"Value":51398,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"239":{
+"Label":"BELL",
+"Value":51439,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"244":{
+"Label":"BELL2",
+"Value":51444,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"241":{
+"Label":"BELL1",
+"Value":51441,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"71":{
+"Label":"SETEXIT",
+"Value":51271,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"131":{
+"Label":"TABLE",
+"Value":51331,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"28":{
+"Label":"LOOP",
+"Value":51228,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"75":{
+"Label":"KEYIN",
+"Value":51275,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"94":{
+"Label":"NOTK",
+"Value":51294,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"108":{
+"Label":"NTSHFT",
+"Value":51308,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"123":{
+"Label":"INDONE",
+"Value":51323,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"69":{
+"Label":"SETBTM2",
+"Value":51269,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"67":{
+"Label":"SETBTM1",
+"Value":51267,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"56":{
+"Label":"SETBTM",
+"Value":51256,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"285":{
+"Label":"VDOUT1",
+"Value":51485,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"275":{
+"Label":"VIDOUT",
+"Value":51475,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"257":{
+"Label":"STOADV",
+"Value":51457,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"347":{
+"Label":"RTS4",
+"Value":51547,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"348":{
+"Label":"BS",
+"Value":51548,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"358":{
+"Label":"UP",
+"Value":51558,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"429":{
+"Label":"HOME",
+"Value":51629,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"438":{
+"Label":"JVTAB",
+"Value":51638,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"419":{
+"Label":"CLSCRN",
+"Value":51619,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"398":{
+"Label":"CLEOP1",
+"Value":51598,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"392":{
+"Label":"CLREOP",
+"Value":51592,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"550":{
+"Label":"VTABZ",
+"Value":51750,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"562":{
+"Label":"BASCLC1",
+"Value":51762,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"739":{
+"Label":"NOT1",
+"Value":51939,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"765":{
+"Label":"NOT3",
+"Value":51965,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"727":{
+"Label":"NOT0",
+"Value":51927,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"752":{
+"Label":"NOT2",
+"Value":51952,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"758":{
+"Label":"FLGSET",
+"Value":51958,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"745":{
+"Label":"FLGCLR",
+"Value":51945,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"662":{
+"Label":"LEAD",
+"Value":51862,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"708":{
+"Label":"NOTGOXY",
+"Value":51908,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"703":{
+"Label":"GOXY2",
+"Value":51903,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"690":{
+"Label":"BADY",
+"Value":51890,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"700":{
+"Label":"BADX",
+"Value":51900,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"637":{
+"Label":"WRITE1",
+"Value":51837,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"640":{
+"Label":"WSKIP",
+"Value":51840,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"446":{
+"Label":"LF",
+"Value":51646,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"382":{
+"Label":"BLF",
+"Value":51582,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"441":{
+"Label":"CRLF",
+"Value":51641,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"756":{
+"Label":"HILITE",
+"Value":51956,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"743":{
+"Label":"LOLITE",
+"Value":51943,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"263":{
+"Label":"ADVANCE",
+"Value":51463,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"416":{
+"Label":"JCLREOL",
+"Value":51616,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"339":{
+"Label":"LEADIN",
+"Value":51539,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"999":{
+"Label":"STPLST",
+"Value":52199,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"1021":{
+"Label":"STPDONE",
+"Value":52221,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"1009":{
+"Label":"STPLOOP",
+"Value":52209,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"544":{
+"Label":"BCLEOL2",
+"Value":51744,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"}},
+
+"OperandFormats":{
+"63":{
+"Length":2,
+"Format":"NumericLE",
+"SubFormat":"Decimal",
+"SymbolRef":null,
+"Extra":null},
+
+"67":{
+"Length":2,
+"Format":"NumericLE",
+"SubFormat":"Decimal",
+"SymbolRef":null,
+"Extra":null},
+
+"117":{
+"Length":2,
+"Format":"NumericLE",
+"SubFormat":"HighAscii",
+"SymbolRef":null,
+"Extra":null},
+
+"269":{
+"Length":2,
+"Format":"NumericLE",
+"SubFormat":"Decimal",
+"SymbolRef":null,
+"Extra":null},
+
+"353":{
+"Length":2,
+"Format":"NumericLE",
+"SubFormat":"Decimal",
+"SymbolRef":null,
+"Extra":null},
+
+"370":{
+"Length":2,
+"Format":"NumericLE",
+"SubFormat":"HighAscii",
+"SymbolRef":null,
+"Extra":null},
+
+"542":{
+"Length":2,
+"Format":"NumericLE",
+"SubFormat":"Decimal",
+"SymbolRef":null,
+"Extra":null},
+
+"693":{
+"Length":2,
+"Format":"NumericLE",
+"SubFormat":"Decimal",
+"SymbolRef":null,
+"Extra":null},
+
+"716":{
+"Length":2,
+"Format":"NumericLE",
+"SubFormat":"HighAscii",
+"SymbolRef":null,
+"Extra":null},
+
+"727":{
+"Length":2,
+"Format":"NumericLE",
+"SubFormat":"HighAscii",
+"SymbolRef":null,
+"Extra":null},
+
+"739":{
+"Length":2,
+"Format":"NumericLE",
+"SubFormat":"HighAscii",
+"SymbolRef":null,
+"Extra":null},
+
+"752":{
+"Length":2,
+"Format":"NumericLE",
+"SubFormat":"HighAscii",
+"SymbolRef":null,
+"Extra":null},
+
+"823":{
+"Length":2,
+"Format":"NumericLE",
+"SubFormat":"Symbol",
+"SymbolRef":{
+"Label":"INENTR",
+"Part":"Low"},
+
+"Extra":null},
+
+"829":{
+"Length":2,
+"Format":"NumericLE",
+"SubFormat":"Symbol",
+"SymbolRef":{
+"Label":"OUTENTR",
+"Part":"Low"},
+
+"Extra":null}},
+
+"LvTables":{
+},
+
+"Visualizations":[],
+"VisualizationAnimations":[],
+"VisualizationSets":{
+},
+
+"RelocList":{
+},
+
+"DbrValues":{
+}}
