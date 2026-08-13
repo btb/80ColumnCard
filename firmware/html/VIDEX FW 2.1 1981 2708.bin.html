@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="SGStyle.css"/>
+
+    <meta name="description" content="SourceGen-generated disassembly of VIDEX FW 2.1 1981 2708.bin"/>
+    <title>VIDEX FW 2.1 1981 2708.bin Disassembly</title>
+</head>
+
+<body>
+
+<p style="font-size:smaller;"><a href="./">(back to project page)</a></p>
+<h1>VIDEX FW 2.1 1981 2708.bin Disassembly</h1>
+
+<div id="code-lines">
+    <!-- The CodeLines marker is not optional, and may only appear once -->
+<pre>                   ********************************************************************************
+                   *                                                                              *
+                   * Videoterm Interface                                                          *
+                   * Firmware v. 2.1                                                              *
+                   *                                                                              *
+                   * Written by Darrel Aldrich                                                    *
+                   * (c) 1981 Videx                                                               *
+                   *                                                                              *
+                   ********************************************************************************
+                   * 6502bench SourceGen v1.10.2                                                  *
+                   ********************************************************************************
+                   <span id="SymMON_WNDBTM">MON_WNDBTM</span>      .eq     $23               ;bottom of scroll window
+                   <span id="SymMON_CH">MON_CH</span>          .eq     $24               ;cursor horizontal displacement
+                   <span id="SymMON_CV">MON_CV</span>          .eq     $25               ;cursor vertical displacement
+                   <span id="SymMON_BASL">MON_BASL</span>        .eq     $28               ;base address for text output (lo)
+                   <span id="SymXSAVE">XSAVE</span>           .eq     $35               ;not used by monitor?
+                   <span id="SymMON_CSWL">MON_CSWL</span>        .eq     $36               ;character output hook (lo)
+                   <span id="SymMON_CSWH">MON_CSWH</span>        .eq     $37               ;character output hook (hi)
+                   <span id="SymMON_KSWL">MON_KSWL</span>        .eq     $38               ;character input hook (lo)
+                   <span id="SymMON_KSWH">MON_KSWH</span>        .eq     $39               ;character input hook (hi)
+                   <span id="SymMON_RNDH">MON_RNDH</span>        .eq     $4f               ;high byte of KEYIN "random" value
+                   <span id="SymIN">IN</span>              .eq     $0200
+                   <span id="SymBASEL_BASE">BASEL_BASE</span>      .eq     $03b8             ;Screen base address low
+                   <span id="SymBASEH_BASE">BASEH_BASE</span>      .eq     $0438             ;Screen base address high
+                   <span id="SymCHORZ_BASE">CHORZ_BASE</span>      .eq     $04b8             ;Cursor horizontal position
+                   <span id="SymASAV1">ASAV1</span>           .eq     $04f8             ;temp
+                   <span id="SymCVERT_BASE">CVERT_BASE</span>      .eq     $0538             ;Cursor vertical position
+                   <span id="SymSCRNHOLE2">SCRNHOLE2</span>       .eq     $0578  {addr/8}   ;text page 1 screen holes
+                   <span id="SymBYTE_BASE">BYTE_BASE</span>       .eq     $05b8             ;I/O byte for Pascal entries
+                   <span id="SymTEMPX">TEMPX</span>           .eq     $05f8             ;temp
+                   <span id="SymSTART_BASE">START_BASE</span>      .eq     $0638             ;Screen start address
+                   <span id="SymOLDCHAR">OLDCHAR</span>         .eq     $0678             ;temp
+                   <span id="SymPOFF_BASE">POFF_BASE</span>       .eq     $06b8             ;Power off and lead in counter
+                   <span id="SymSCRNHOLE5">SCRNHOLE5</span>       .eq     $06f8  {addr/8}   ;text page 1 screen holes
+                   <span id="SymFLAGS_BASE">FLAGS_BASE</span>      .eq     $0738             ;Video set up flags
+                   <span id="SymSCRNHOLE6">SCRNHOLE6</span>       .eq     $0778  {addr/8}   ;text page 1 screen holes
+                   <span id="SymKBD">KBD</span>             .eq     $c000             ;R last key pressed + 128
+                   <span id="SymKBDSTRB">KBDSTRB</span>         .eq     $c010             ;RW keyboard strobe
+                   <span id="SymSPKR">SPKR</span>            .eq     $c030             ;RW toggle speaker
+                   <span id="SymDEV0_BASE">DEV0_BASE</span>       .eq     $c080             ;CRTC Address Register
+                   <span id="SymDEV1_BASE">DEV1_BASE</span>       .eq     $c081             ;CRTC Data Registers
+                   <span id="SymDISP0">DISP0</span>           .eq     $cc00
+                   <span id="SymDISP1">DISP1</span>           .eq     $cd00
+                   <span id="SymCLRROM">CLRROM</span>          .eq     $cfff             ;disable slot C8 ROM
+                   <span id="SymIORTS">IORTS</span>           .eq     $ffcb
+
+                   <span id="CSymSETUP">********************************************************************************</span>
+                   *                                                                              *
+                   * Set up CRTC and clear screen                                                 *
+                   *                                                                              *
+                   ********************************************************************************
+                                   .addrs  $c800
+c800: bd b8 06     <span id="SymSETUP">SETUP</span>           lda     <a href="#SymPOFF_BASE">POFF_BASE</a>,x       ;Get power off flag
+c803: 29 f8                        and     #$f8              ;Strip off lead in counters
+c805: c9 30                        cmp     #$30              ;Has power been turned off?
+c807: f0 3e                        beq     <a href="#SymSETEXIT">SETEXIT</a>
+c809: a9 30                        lda     #$30
+c80b: 9d b8 06                     sta     <a href="#SymPOFF_BASE">POFF_BASE</a>,x       ;Set defaults for flags
+c80e: 9d 38 07     <span id="SymLC80E">LC80E</span>           sta     <a href="#SymFLAGS_BASE">FLAGS_BASE</a>,x
+c811: 20 38 c8                     jsr     <a href="#SymSETBTM">SETBTM</a>
+c814: 8a                           txa
+c815: 48                           pha
+c816: bd 38 07                     lda     <a href="#SymFLAGS_BASE">FLAGS_BASE</a>,x
+c819: 29 10                        and     #$10
+c81b: aa                           tax
+c81c: 8a           <span id="SymLOOP">LOOP</span>            txa
+c81d: 29 0f                        and     #$0f
+c81f: 99 80 c0                     sta     <a href="#SymDEV0_BASE">DEV0_BASE</a>,y       ;For the CRTC address
+c822: bd 83 c8                     lda     <a href="#SymTABLE">TABLE</a>,x           ;Get parameter
+c825: 99 81 c0                     sta     <a href="#SymDEV1_BASE">DEV1_BASE</a>,y       ;Store into CRTC
+c828: e8                           inx
+c829: 8a                           txa
+c82a: 29 0f                        and     #$0f
+c82c: d0 ee                        bne     <a href="#SymLOOP">LOOP</a>              ;Continue loop until done
+c82e: 68                           pla
+c82f: aa                           tax
+c830: a9 00                        lda     #$00
+c832: 9d 38 06                     sta     <a href="#SymSTART_BASE">START_BASE</a>,x
+c835: 4c a3 c9                     jmp     <a href="#SymCLSCRN">CLSCRN</a>
+
+                   <span id="CSymSETBTM">* Sets window height depending on flag</span>
+c838: bd 38 07     <span id="SymSETBTM">SETBTM</span>          lda     <a href="#SymFLAGS_BASE">FLAGS_BASE</a>,x
+c83b: 29 10                        and     #$10
+c83d: f0 04                        beq     <a href="#SymSETBTM1">SETBTM1</a>
+c83f: a9 18                        lda     #24
+c841: d0 02                        bne     <a href="#SymSETBTM2">SETBTM2</a>
+
+c843: a9 12        <span id="SymSETBTM1">SETBTM1</span>         lda     #18
+c845: 85 23        <span id="SymSETBTM2">SETBTM2</span>         sta     <a href="#SymMON_WNDBTM">MON_WNDBTM</a>
+c847: 60           <span id="SymSETEXIT">SETEXIT</span>         rts
+
+                   <span id="CSymRDKEY">********************************************************************************</span>
+                   *                                                                              *
+                   * Get character from keyboard                                                  *
+                   ********************************************************************************
+c848: 20 c6 c8     <span id="SymRDKEY">RDKEY</span>           jsr     <a href="#SymCSRMOV">CSRMOV</a>            ;Position cursor
+c84b: e6 4f        <span id="SymKEYIN">KEYIN</span>           inc     <a href="#SymMON_RNDH">MON_RNDH</a>          ;Update basic random number
+c84d: 20 38 c8                     jsr     <a href="#SymSETBTM">SETBTM</a>
+c850: ad 00 c0                     lda     <a href="#SymKBD">KBD</a>               ;Poll keyboard
+c853: 10 f6                        bpl     <a href="#SymKEYIN">KEYIN</a>             ;Loop until key is struck
+c855: 2c 10 c0                     bit     <a href="#SymKBDSTRB">KBDSTRB</a>           ;Clear keyboard stroke
+c858: c9 8b                        cmp     #$8b              ;Check for control X
+c85a: d0 02                        bne     <a href="#SymNOTK">NOTK</a>              ;Skip if not
+c85c: a9 db                        lda     #$db              ;Substitute a right bracket
+c85e: c9 81        <span id="SymNOTK">NOTK</span>            cmp     #$81              ;Check for control A
+c860: d0 0a                        bne     <a href="#SymNTSHFT">NTSHFT</a>            ;Skip if not
+c862: bd 38 07                     lda     <a href="#SymFLAGS_BASE">FLAGS_BASE</a>,x
+c865: 49 40                        eor     #$40
+c867: 9d 38 07                     sta     <a href="#SymFLAGS_BASE">FLAGS_BASE</a>,x      ;Toggle upr/lwr case flag
+c86a: b0 dc                        bcs     <a href="#SymRDKEY">RDKEY</a>             ;Get next key
+c86c: 48           <span id="SymNTSHFT">NTSHFT</span>          pha                       ;Save character
+c86d: bd 38 07                     lda     <a href="#SymFLAGS_BASE">FLAGS_BASE</a>,x
+c870: 0a                           asl     A
+c871: 0a                           asl     A                 ;Check upr/lwr case conversion flag
+c872: 68                           pla                       ;Restore character
+c873: 90 06                        bcc     <a href="#SymINDONE">INDONE</a>            ;Don't convert if flag clear
+c875: c9 c0                        cmp     #‘@’ | $80
+c877: 90 02                        bcc     <a href="#SymINDONE">INDONE</a>
+c879: 49 20                        eor     #$20
+c87b: 48           <span id="SymINDONE">INDONE</span>          pha                       ;Duplicate character
+c87c: 29 7f                        and     #$7f              ;Strip off high bit
+c87e: 9d b8 05                     sta     <a href="#SymBYTE_BASE">BYTE_BASE</a>,x       ;Save for Pascal
+c881: 68                           pla                       ;Recover for Basic
+c882: 60                           rts
+
+                   <span id="CSymTABLE">********************************************************************************</span>
+                   * These are the CRTC initialization values, each one sent to a different       *
+                   * internal register.                                                           *
+                   ********************************************************************************
+c883: 7b           <span id="SymTABLE">TABLE</span>           .dd1    $7b               ;R0 - Horizontal Total Register
+c884: 50                           .dd1    $50               ;R1 - Horizontal Displayed Register
+c885: 62                           .dd1    $62               ;R2 - Horizontal Sync Position Register
+c886: 29                           .dd1    $29               ;R3 - Horizontal Sync Width Register
+c887: 14                           .dd1    $14               ;R4 - Vertical Total Register
+c888: 08                           .dd1    $08               ;R5 - Vertical Total Adjust Register
+c889: 12                           .dd1    $12               ;R6 - Vertical Displayed Register
+c88a: 13                           .dd1    $13               ;R7 - Vertical Sync Position Register
+c88b: 00                           .dd1    $00               ;R8 - Interlace Mode Register
+c88c: 0b                           .dd1    $0b               ;R9 - Maximum Scan Line Register
+c88d: c0                           .dd1    $c0               ;R10 - Cursor End Register
+c88e: 0b                           .dd1    $0b               ;R11 - Cursor End Register
+c88f: 00                           .dd1    $00               ;R12 - Start Address Register (H)
+c890: 00                           .dd1    $00               ;R13 - Start Address Register (L)
+c891: 00                           .dd1    $00               ;R14 - Cursor Register (H)
+c892: 00                           .dd1    $00               ;R15 - Cursor Register (L)
+                   * Values for other resolution I think
+c893: 7b                           .dd1    $7b
+c894: 50                           .dd1    $50
+c895: 62                           .dd1    $62
+c896: 29                           .dd1    $29
+c897: 1b                           .dd1    $1b
+c898: 08                           .dd1    $08
+c899: 18                           .dd1    $18
+c89a: 19                           .dd1    $19
+c89b: 00                           .dd1    $00
+c89c: 08                           .dd1    $08
+c89d: c0                           .dd1    $c0
+c89e: 08                           .dd1    $08
+c89f: 00                           .dd1    $00
+c8a0: 00                           .dd1    $00
+c8a1: 00                           .dd1    $00
+c8a2: 00                           .dd1    $00
+
+                   <span id="CSymBASOUT1">********************************************************************************</span>
+                   *                                                                              *
+                   * Secondary basic output routine                                               *
+                   *                                                                              *
+                   ********************************************************************************
+c8a3: 9d b8 05     <span id="SymBASOUT1">BASOUT1</span>         sta     <a href="#SymBYTE_BASE">BYTE_BASE</a>,x
+c8a6: a5 25                        lda     <a href="#SymMON_CV">MON_CV</a>
+c8a8: dd 38 05                     cmp     <a href="#SymCVERT_BASE">CVERT_BASE</a>,x
+c8ab: f0 06                        beq     <a href="#SymCVOK">CVOK</a>
+c8ad: 9d 38 05                     sta     <a href="#SymCVERT_BASE">CVERT_BASE</a>,x
+c8b0: 20 23 ca                     jsr     <a href="#SymVTAB">VTAB</a>
+c8b3: a5 24        <span id="SymCVOK">CVOK</span>            lda     <a href="#SymMON_CH">MON_CH</a>            ;Perform HTab
+c8b5: dd b8 04                     cmp     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x
+c8b8: 90 03                        bcc     <a href="#SymPSCLOUT">PSCLOUT</a>
+c8ba: 9d b8 04                     sta     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x
+c8bd: 20 38 c8     <span id="SymPSCLOUT">PSCLOUT</span>         jsr     <a href="#SymSETBTM">SETBTM</a>
+c8c0: bd b8 05                     lda     <a href="#SymBYTE_BASE">BYTE_BASE</a>,x       ;Get character
+c8c3: 20 84 ca                     jsr     <a href="#SymOUTPT1">OUTPT1</a>            ;Output character
+c8c6: ac f8 06     <span id="SymCSRMOV">CSRMOV</span>          ldy     <a href="#SymSCRNHOLE5">SCRNHOLE5</a>
+c8c9: a9 0f                        lda     #$0f              ;Set up CRTC address
+c8cb: 99 80 c0                     sta     <a href="#SymDEV0_BASE">DEV0_BASE</a>,y       ;for cursor low address
+c8ce: bd b8 04                     lda     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x      ;Calculate address
+c8d1: 18                           clc
+c8d2: 7d b8 03                     adc     <a href="#SymBASEL_BASE">BASEL_BASE</a>,x
+c8d5: 99 81 c0                     sta     <a href="#SymDEV1_BASE">DEV1_BASE</a>,y       ;Save address
+c8d8: a9 0e                        lda     #$0e              ;Set up CRTC address
+c8da: 99 80 c0                     sta     <a href="#SymDEV0_BASE">DEV0_BASE</a>,y       ;for cursor high address
+c8dd: a9 00                        lda     #$00              ;Calculate address
+c8df: 7d 38 04                     adc     <a href="#SymBASEH_BASE">BASEH_BASE</a>,x
+c8e2: 99 81 c0                     sta     <a href="#SymDEV1_BASE">DEV1_BASE</a>,y       ;Save address
+c8e5: 60                           rts
+
+c8e6: bd b8 06     <span id="SymLC8E6">LC8E6</span>           lda     <a href="#SymPOFF_BASE">POFF_BASE</a>,x
+c8e9: 09 02                        ora     #$02
+c8eb: 9d b8 06                     sta     <a href="#SymPOFF_BASE">POFF_BASE</a>,x
+c8ee: 60                           rts
+
+c8ef: a9 c0        <span id="SymBELL">BELL</span>            lda     #$c0              ;Beep the speaker
+c8f1: 48           <span id="SymBELL1">BELL1</span>           pha
+c8f2: a9 80                        lda     #$80
+c8f4: e9 01        <span id="SymBELL2">BELL2</span>           sbc     #$01
+c8f6: d0 fc                        bne     <a href="#SymBELL2">BELL2</a>
+c8f8: ad 30 c0                     lda     <a href="#SymSPKR">SPKR</a>
+c8fb: 68                           pla
+c8fc: e9 01                        sbc     #$01
+c8fe: d0 f1                        bne     <a href="#SymBELL1">BELL1</a>
+c900: 60                           rts
+
+                   <span id="CSymSTOADV">********************************************************************************</span>
+                   * Store character on screen and advance cursor                                 *
+                   ********************************************************************************
+c901: bc b8 04     <span id="SymSTOADV">STOADV</span>          ldy     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x
+c904: 20 69 ca                     jsr     <a href="#SymCHRPUT">CHRPUT</a>            ;Place character on screen
+c907: fe b8 04     <span id="SymADVANCE">ADVANCE</span>         inc     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x      ;Increment cursor horizontal index
+c90a: bd b8 04                     lda     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x
+c90d: c9 50                        cmp     #80
+c90f: 90 4a                        bcc     <a href="#SymRTS4">RTS4</a>
+c911: a9 8d                        lda     #$8d
+c913: c9 0d        <span id="SymVIDOUT">VIDOUT</span>          cmp     #$0d
+c915: d0 06                        bne     <a href="#SymVDOUT1">VDOUT1</a>
+c917: a9 00                        lda     #$00
+c919: 9d b8 04                     sta     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x
+c91c: 60                           rts
+
+c91d: 09 80        <span id="SymVDOUT1">VDOUT1</span>          ora     #$80              ;Set high bit
+c91f: c9 a0                        cmp     #$a0
+c921: b0 de                        bcs     <a href="#SymSTOADV">STOADV</a>            ;If not control print it
+c923: c9 87                        cmp     #$87
+c925: 90 34                        bcc     <a href="#SymRTS4">RTS4</a>              ;CTRL @ - F
+c927: f0 c6                        beq     <a href="#SymBELL">BELL</a>
+c929: 69 76                        adc     #$76
+c92b: 90 2f                        bcc     <a href="#SymBS">BS</a>
+c92d: f0 2c                        beq     <a href="#SymRTS4">RTS4</a>
+c92f: 69 fd                        adc     #$fd
+c931: 90 4b                        bcc     <a href="#SymBLF">BLF</a>
+c933: f0 53                        beq     <a href="#SymCLREOP">CLREOP</a>
+c935: 69 fd                        adc     #$fd
+c937: 90 6a                        bcc     <a href="#SymCLSCRN">CLSCRN</a>
+c939: f0 7e                        beq     <a href="#SymCRLF">CRLF</a>
+c93b: c9 0c                        cmp     #$0c
+c93d: 90 1c                        bcc     <a href="#SymRTS4">RTS4</a>
+c93f: f0 6c                        beq     <a href="#SymHOME">HOME</a>
+c941: 69 f1                        adc     #$f1
+c943: 90 0e                        bcc     <a href="#SymLEADIN">LEADIN</a>
+c945: f0 14                        beq     <a href="#SymRTS4">RTS4</a>
+c947: 69 fd                        adc     #$fd
+c949: 90 bc                        bcc     <a href="#SymADVANCE">ADVANCE</a>
+c94b: f0 53                        beq     <a href="#SymJCLREOL">JCLREOL</a>
+c94d: 69 fd                        adc     #$fd
+c94f: 90 95                        bcc     <a href="#SymLC8E6">LC8E6</a>
+c951: b0 13                        bcs     <a href="#SymUP">UP</a>
+
+c953: bd b8 06     <span id="SymLEADIN">LEADIN</span>          lda     <a href="#SymPOFF_BASE">POFF_BASE</a>,x
+c956: 09 04                        ora     #$04              ;Set lead in bit
+c958: 9d b8 06                     sta     <a href="#SymPOFF_BASE">POFF_BASE</a>,x
+c95b: 60           <span id="SymRTS4">RTS4</span>            rts
+
+c95c: de b8 04     <span id="SymBS">BS</span>              dec     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x      ;Decrement cursor horizontal index
+c95f: 10 fa                        bpl     <a href="#SymRTS4">RTS4</a>              ;If pos, OK. Else move up
+c961: a9 4f                        lda     #79               ;Set cursor horizontal to
+c963: 9d b8 04                     sta     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x      ;rightmost screen position
+                   <span id="CSymUP">********************************************************************************</span>
+                   * Move cursor up                                                               *
+                   ********************************************************************************
+c966: bd 38 05     <span id="SymUP">UP</span>              lda     <a href="#SymCVERT_BASE">CVERT_BASE</a>,x      ;Get cursor vertical index
+c969: f0 f0                        beq     <a href="#SymRTS4">RTS4</a>              ;If top line then return
+c96b: de 38 05                     dec     <a href="#SymCVERT_BASE">CVERT_BASE</a>,x      ;Decrement cursor vertical index
+c96e: 4c 23 ca                     jmp     <a href="#SymVTAB">VTAB</a>              ;Vertical tab to cursor position
+
+c971: 38           <span id="SymLC971">LC971</span>           sec
+c972: 49 c0                        eor     #‘@’ | $80
+c974: f0 2d                        beq     <a href="#SymCLSCRN">CLSCRN</a>
+c976: 69 fd                        adc     #$fd
+c978: 90 8d                        bcc     <a href="#SymADVANCE">ADVANCE</a>
+c97a: f0 e0                        beq     <a href="#SymBS">BS</a>
+c97c: 69 fd                        adc     #$fd
+c97e: 90 3e        <span id="SymBLF">BLF</span>             bcc     <a href="#SymLF">LF</a>
+c980: f0 e4                        beq     <a href="#SymUP">UP</a>
+c982: 69 fd                        adc     #$fd
+c984: 90 1a                        bcc     <a href="#SymJCLREOL">JCLREOL</a>
+c986: d0 d3                        bne     <a href="#SymRTS4">RTS4</a>
+                   <span id="CSymCLREOP">********************************************************************************</span>
+                   * Clear to end of page                                                         *
+                   ********************************************************************************
+c988: bc b8 04     <span id="SymCLREOP">CLREOP</span>          ldy     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x      ;Get cursor horizontal into Y
+c98b: bd 38 05                     lda     <a href="#SymCVERT_BASE">CVERT_BASE</a>,x      ;Get cursor vertical into A
+c98e: 48           <span id="SymCLEOP1">CLEOP1</span>          pha                       ;Save current line on stack
+c98f: 20 26 ca                     jsr     <a href="#SymVTABZ">VTABZ</a>             ;Calculate base address
+c992: 20 18 ca                     jsr     <a href="#SymCLEOLZ">CLEOLZ</a>
+c995: a0 00                        ldy     #$00
+c997: 68                           pla
+c998: 69 00                        adc     #$00
+c99a: c5 23                        cmp     <a href="#SymMON_WNDBTM">MON_WNDBTM</a>
+c99c: 90 f0                        bcc     <a href="#SymCLEOP1">CLEOP1</a>
+c99e: b0 16                        bcs     <a href="#SymJVTAB">JVTAB</a>
+
+c9a0: 4c 15 ca     <span id="SymJCLREOL">JCLREOL</span>         jmp     <a href="#SymCLREOL">CLREOL</a>
+
+                   <span id="CSymCLSCRN">********************************************************************************</span>
+                   * Clear screen                                                                 *
+                   ********************************************************************************
+c9a3: 20 ad c9     <span id="SymCLSCRN">CLSCRN</span>          jsr     <a href="#SymHOME">HOME</a>              ;Home cursor
+c9a6: 98                           tya
+c9a7: f0 e5                        beq     <a href="#SymCLEOP1">CLEOP1</a>            ;Clear to end of page
+c9a9: ea                           nop
+c9aa: 4c bd c8                     jmp     <a href="#SymPSCLOUT">PSCLOUT</a>
+
+                   <span id="CSymHOME">********************************************************************************</span>
+                   * Home cursor                                                                  *
+                   ********************************************************************************
+c9ad: a9 00        <span id="SymHOME">HOME</span>            lda     #$00              ;Set cursor position to 0,0
+c9af: 9d b8 04                     sta     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x
+c9b2: 9d 38 05                     sta     <a href="#SymCVERT_BASE">CVERT_BASE</a>,x
+c9b5: a8                           tay
+c9b6: 4c 23 ca     <span id="SymJVTAB">JVTAB</span>           jmp     <a href="#SymVTAB">VTAB</a>              ;Vertical tab to cursor position
+
+                   <span id="CSymCRLF">********************************************************************************</span>
+                   *                                                                              *
+                   * CR LF routine                                                                *
+                   ********************************************************************************
+c9b9: a9 00        <span id="SymCRLF">CRLF</span>            lda     #$00
+c9bb: 9d b8 04                     sta     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x
+c9be: fe 38 05     <span id="SymLF">LF</span>              inc     <a href="#SymCVERT_BASE">CVERT_BASE</a>,x      ;Increment cursor vertical
+c9c1: bd 38 05                     lda     <a href="#SymCVERT_BASE">CVERT_BASE</a>,x
+c9c4: c5 23                        cmp     <a href="#SymMON_WNDBTM">MON_WNDBTM</a>        ;Off screen?
+c9c6: 90 5e                        bcc     <a href="#SymVTABZ">VTABZ</a>             ;If not move cursor
+c9c8: de 38 05                     dec     <a href="#SymCVERT_BASE">CVERT_BASE</a>,x      ;If so decrement cursor vertical
+c9cb: 18                           clc
+c9cc: ac f8 06                     ldy     <a href="#SymSCRNHOLE5">SCRNHOLE5</a>
+c9cf: bd 38 06                     lda     <a href="#SymSTART_BASE">START_BASE</a>,x      ;Increment the start address
+c9d2: 69 05                        adc     #$05              ;by one line
+c9d4: 29 7f                        and     #$7f
+c9d6: 9d 38 06                     sta     <a href="#SymSTART_BASE">START_BASE</a>,x
+c9d9: 20 32 ca                     jsr     <a href="#SymBASCLC1">BASCLC1</a>           ;Calculate the start address
+c9dc: a9 0d                        lda     #$0d              ;Set up CRTC address
+c9de: 99 80 c0                     sta     <a href="#SymDEV0_BASE">DEV0_BASE</a>,y       ;for start low address
+c9e1: bd b8 03                     lda     <a href="#SymBASEL_BASE">BASEL_BASE</a>,x      ;Get start low
+c9e4: 99 81 c0                     sta     <a href="#SymDEV1_BASE">DEV1_BASE</a>,y       ;Save start low
+c9e7: a9 0c                        lda     #$0c              ;Set up CRTC address
+c9e9: 99 80 c0                     sta     <a href="#SymDEV0_BASE">DEV0_BASE</a>,y       ;for start high address
+c9ec: bd 38 04                     lda     <a href="#SymBASEH_BASE">BASEH_BASE</a>,x      ;Get start high
+c9ef: 99 81 c0                     sta     <a href="#SymDEV1_BASE">DEV1_BASE</a>,y       ;Save start high
+c9f2: a4 23                        ldy     <a href="#SymMON_WNDBTM">MON_WNDBTM</a>        ;Put window bottom-1 into A
+c9f4: 88                           dey
+c9f5: 98                           tya
+c9f6: 20 26 ca                     jsr     <a href="#SymVTABZ">VTABZ</a>             ;Calculate base address
+c9f9: a0 00                        ldy     #$00
+c9fb: 20 18 ca                     jsr     <a href="#SymCLEOLZ">CLEOLZ</a>            ;Clear bottom line
+c9fe: b0 23                        bcs     <a href="#SymVTAB">VTAB</a>              ;Move cursor back
+ca00: 2c cb ff                     bit     <a href="#SymIORTS">IORTS</a>
+ca03: 70 04                        bvs     <a href="#SymLCA09">LCA09</a>
+ca05: 38                           sec
+ca06: 90 18                        bcc     <a href="#SymBCLEOL2">BCLEOL2</a>
+ca08: b8                           clv
+ca09: 8d ff cf     <span id="SymLCA09">LCA09</span>           sta     <a href="#SymCLRROM">CLRROM</a>
+ca0c: 20 15 cb                     jsr     <a href="#SymWHERE">WHERE</a>
+ca0f: 60                           rts
+
+ca10: 91                           .dd1    $91
+ca11: 28                           .dd1    $28
+ca12: 38                           .dd1    $38
+ca13: b0                           .dd1    $b0
+ca14: f0                           .dd1    $f0
+
+ca15: bc b8 04     <span id="SymCLREOL">CLREOL</span>          ldy     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x      ;Put cursor horizontal into Y
+ca18: a9 a0        <span id="SymCLEOLZ">CLEOLZ</span>          lda     #$a0              ;Use a space
+ca1a: 20 69 ca     <span id="SymCLEOL2">CLEOL2</span>          jsr     <a href="#SymCHRPUT">CHRPUT</a>            ;Put character on screen
+ca1d: c8                           iny
+ca1e: c0 50                        cpy     #80               ;Continue until
+ca20: 90 f8        <span id="SymBCLEOL2">BCLEOL2</span>         bcc     <a href="#SymCLEOL2">CLEOL2</a>            ;Y &gt;= 80
+ca22: 60                           rts
+
+ca23: bd 38 05     <span id="SymVTAB">VTAB</span>            lda     <a href="#SymCVERT_BASE">CVERT_BASE</a>,x      ;Get cursor vertical
+ca26: 8d f8 04     <span id="SymVTABZ">VTABZ</span>           sta     <a href="#SymASAV1">ASAV1</a>             ;Multiply A by 5
+ca29: 0a                           asl     A
+ca2a: 0a                           asl     A
+ca2b: 18                           clc
+ca2c: 6d f8 04                     adc     <a href="#SymASAV1">ASAV1</a>
+ca2f: 7d 38 06                     adc     <a href="#SymSTART_BASE">START_BASE</a>,x      ;Add start
+ca32: 48           <span id="SymBASCLC1">BASCLC1</span>         pha                       ;Save A
+ca33: 4a                           lsr     A                 ;Calculate BASEH
+ca34: 4a                           lsr     A
+ca35: 4a                           lsr     A
+ca36: 4a                           lsr     A
+ca37: 9d 38 04                     sta     <a href="#SymBASEH_BASE">BASEH_BASE</a>,x
+ca3a: 68                           pla                       ;Recover A
+ca3b: 0a                           asl     A                 ;Calculate BASEL
+ca3c: 0a                           asl     A
+ca3d: 0a                           asl     A
+ca3e: 0a                           asl     A
+ca3f: 9d b8 03                     sta     <a href="#SymBASEL_BASE">BASEL_BASE</a>,x
+ca42: 60                           rts
+
+                   <span id="CSymPSNCALC">********************************************************************************</span>
+                   * Calculate screen address and switch in correct page                          *
+                   *                                                                              *
+                   ********************************************************************************
+ca43: 8e 78 07     <span id="SymPSNCALC">PSNCALC</span>         stx     <a href="#SymSCRNHOLE6">SCRNHOLE6</a>
+ca46: 98                           tya
+ca47: 18                           clc
+ca48: 7d b8 03                     adc     <a href="#SymBASEL_BASE">BASEL_BASE</a>,x
+ca4b: 8d 78 05                     sta     <a href="#SymSCRNHOLE2">SCRNHOLE2</a>
+ca4e: a9 00                        lda     #$00              ;Calculate screen address high
+ca50: 7d 38 04                     adc     <a href="#SymBASEH_BASE">BASEH_BASE</a>,x
+ca53: 4a                           lsr     A
+ca54: 08                           php
+ca55: 29 03                        and     #$03              ;Use bit 0 and 1 for paging
+ca57: 0a                           asl     A
+ca58: 0a                           asl     A
+ca59: 0d f8 06                     ora     <a href="#SymSCRNHOLE5">SCRNHOLE5</a>
+ca5c: 84 35                        sty     <a href="#SymXSAVE">XSAVE</a>
+ca5e: a8                           tay
+ca5f: b9 80 c0                     lda     <a href="#SymDEV0_BASE">DEV0_BASE</a>,y       ;Set correct screen page
+ca62: a4 35                        ldy     <a href="#SymXSAVE">XSAVE</a>
+ca64: 28                           plp
+ca65: ae 78 05                     ldx     <a href="#SymSCRNHOLE2">SCRNHOLE2</a>
+ca68: 60                           rts
+
+                   <span id="CSymCHRPUT">********************************************************************************</span>
+                   *                                                                              *
+                   * Put a character at CVERT, CHORZ                                              *
+                   *                                                                              *
+                   ********************************************************************************
+ca69: 0a           <span id="SymCHRPUT">CHRPUT</span>          asl     A
+ca6a: 48                           pha                       ;Save shifted character
+ca6b: bd 38 07                     lda     <a href="#SymFLAGS_BASE">FLAGS_BASE</a>,x      ;Get character set flag
+ca6e: 4a                           lsr     A                 ;Shift it into carry
+ca6f: 68                           pla                       ;Recover shifted character
+ca70: 6a                           ror     A                 ;Rotate carry into character
+ca71: 48                           pha                       ;Save character
+ca72: 20 43 ca                     jsr     <a href="#SymPSNCALC">PSNCALC</a>           ;Set up screen address
+ca75: 68                           pla                       ;Recover character
+ca76: b0 05                        bcs     <a href="#SymWRITE1">WRITE1</a>            ;Select memory range
+ca78: 9d 00 cc                     sta     <a href="#SymDISP0">DISP0</a>,x           ;Store character on screen
+ca7b: 90 03                        bcc     <a href="#SymWSKIP">WSKIP</a>             ;Skip
+
+ca7d: 9d 00 cd     <span id="SymWRITE1">WRITE1</span>          sta     <a href="#SymDISP1">DISP1</a>,x           ;Store character on screen
+ca80: ae 78 07     <span id="SymWSKIP">WSKIP</span>           ldx     <a href="#SymSCRNHOLE6">SCRNHOLE6</a>         ;Recover X register
+ca83: 60                           rts
+
+                   <span id="CSymOUTPT1">********************************************************************************</span>
+                   *                                                                              *
+                   * General output routine                                                       *
+                   *                                                                              *
+                   ********************************************************************************
+ca84: 48           <span id="SymOUTPT1">OUTPT1</span>          pha                       ;Save character
+ca85: ac f8 06                     ldy     <a href="#SymSCRNHOLE5">SCRNHOLE5</a>
+ca88: 20 e7 cb                     jsr     <a href="#SymSTPLST">STPLST</a>
+ca8b: bd b8 06                     lda     <a href="#SymPOFF_BASE">POFF_BASE</a>,x
+ca8e: 29 07                        and     #$07              ;Check for lead in
+ca90: d0 04                        bne     <a href="#SymLEAD">LEAD</a>              ;Branch for lead in
+ca92: 68                           pla                       ;Recover character
+ca93: 4c 13 c9                     jmp     <a href="#SymVIDOUT">VIDOUT</a>            ;Output character
+
+ca96: 29 04        <span id="SymLEAD">LEAD</span>            and     #$04              ;Check for go to XY
+ca98: d0 2a                        bne     <a href="#SymNOTGOXY">NOTGOXY</a>           ;If not skip
+ca9a: 68                           pla                       ;Recover character
+ca9b: e9 20                        sbc     #$20              ;Subtract 32
+ca9d: 29 7f                        and     #$7f              ;Strip off unneeded bits
+ca9f: 48                           pha                       ;Save A
+caa0: de b8 06                     dec     <a href="#SymPOFF_BASE">POFF_BASE</a>,x       ;Decrement lead in counter
+caa3: bd b8 06                     lda     <a href="#SymPOFF_BASE">POFF_BASE</a>,x
+caa6: 29 03                        and     #$03              ;Get count
+caa8: d0 15                        bne     <a href="#SymGOXY2">GOXY2</a>             ;Skip if count not zero
+caaa: 68                           pla                       ;Recover A
+caab: c5 23                        cmp     <a href="#SymMON_WNDBTM">MON_WNDBTM</a>        ;If A &gt; window bottom
+caad: b0 03                        bcs     <a href="#SymBADY">BADY</a>              ;Then don't move cursor vertical
+caaf: 9d 38 05                     sta     <a href="#SymCVERT_BASE">CVERT_BASE</a>,x
+cab2: ad f8 05     <span id="SymBADY">BADY</span>            lda     <a href="#SymTEMPX">TEMPX</a>             ;Get cursor horizontal parameter
+cab5: c9 50                        cmp     #80               ;If A &gt; 80 then
+cab7: b0 03                        bcs     <a href="#SymBADX">BADX</a>              ;don't move cursor horizontal
+cab9: 9d b8 04                     sta     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x
+cabc: 4c 23 ca     <span id="SymBADX">BADX</span>            jmp     <a href="#SymVTAB">VTAB</a>              ;Vertical tab to cursor position
+
+cabf: 68           <span id="SymGOXY2">GOXY2</span>           pla                       ;Recover A
+cac0: 8d f8 05                     sta     <a href="#SymTEMPX">TEMPX</a>             ;Save cursor horizontal parameter
+cac3: 60                           rts
+
+cac4: a9 30        <span id="SymNOTGOXY">NOTGOXY</span>         lda     #$30              ;Clear lead in bits
+cac6: 9d b8 06                     sta     <a href="#SymPOFF_BASE">POFF_BASE</a>,x
+cac9: 68                           pla                       ;Recover character
+caca: 09 80                        ora     #$80
+cacc: c9 b0                        cmp     #‘0’ | $80
+cace: d0 07                        bne     <a href="#SymNOT0">NOT0</a>
+cad0: bd 38 07                     lda     <a href="#SymFLAGS_BASE">FLAGS_BASE</a>,x
+cad3: 09 10                        ora     #$10
+cad5: d0 09                        bne     <a href="#SymLCAE0">LCAE0</a>
+
+cad7: c9 b1        <span id="SymNOT0">NOT0</span>            cmp     #‘1’ | $80
+cad9: d0 08                        bne     <a href="#SymNOT1">NOT1</a>
+cadb: bd 38 07                     lda     <a href="#SymFLAGS_BASE">FLAGS_BASE</a>,x
+cade: 29 ef                        and     #$ef
+cae0: 4c 0e c8     <span id="SymLCAE0">LCAE0</span>           jmp     <a href="#SymLC80E">LC80E</a>
+
+cae3: c9 b2        <span id="SymNOT1">NOT1</span>            cmp     #‘2’ | $80
+cae5: d0 09                        bne     <a href="#SymNOT2">NOT2</a>
+cae7: a9 fe        <span id="SymLOLITE">LOLITE</span>          lda     #$fe
+cae9: 3d 38 07     <span id="SymFLGCLR">FLGCLR</span>          and     <a href="#SymFLAGS_BASE">FLAGS_BASE</a>,x
+caec: 9d 38 07                     sta     <a href="#SymFLAGS_BASE">FLAGS_BASE</a>,x
+caef: 60                           rts
+
+caf0: c9 b3        <span id="SymNOT2">NOT2</span>            cmp     #‘3’ | $80
+caf2: d0 09                        bne     <a href="#SymNOT3">NOT3</a>
+caf4: a9 01        <span id="SymHILITE">HILITE</span>          lda     #$01
+caf6: 1d 38 07     <span id="SymFLGSET">FLGSET</span>          ora     <a href="#SymFLAGS_BASE">FLAGS_BASE</a>,x
+caf9: 9d 38 07                     sta     <a href="#SymFLAGS_BASE">FLAGS_BASE</a>,x
+cafc: 60                           rts
+
+cafd: 4c 01 c9     <span id="SymNOT3">NOT3</span>            jmp     <a href="#SymSTOADV">STOADV</a>
+
+                   ********************************************************************************
+                   *                                                                              *
+                   *                                                                              *
+                   *                                                                              *
+                   *                                                                              *
+                   * Basic initial I/O entry point                                                *
+                   *                                                                              *
+                   ********************************************************************************
+cb00: 2c cb ff                     bit     <a href="#SymIORTS">IORTS</a>             ;Set VFlag on initial entry
+cb03: 70 04                        bvs     <a href="#SymENTR">ENTR</a>
+cb05: 38           <span id="SymINFAKE">INFAKE</span>          sec
+cb06: 90                           bcc ▼   <a href="#SymLCB20">LCB20</a>
+cb07: 18           <span id="SymOUTENTR">OUTENTR</span>         clc
+cb08: b8                           clv
+cb09: 8d ff cf     <span id="SymENTR">ENTR</span>            sta     <a href="#SymCLRROM">CLRROM</a>            ;Turn off co-resident memory
+cb0c: 20 15 cb                     jsr     <a href="#SymWHERE">WHERE</a>
+cb0f: 60                           rts
+
+                   <span id="CSymINENTR">********************************************************************************</span>
+                   * Basic input entry point                                                      *
+                   ********************************************************************************
+cb10: 91 28        <span id="SymINENTR">INENTR</span>          sta     (<a href="#SymMON_BASL">MON_BASL</a>),y      ;Replace flashing cursor
+cb12: 38                           sec
+cb13: b0 f0                        bcs     <a href="#SymINFAKE">INFAKE</a>
+
+                   <span id="CSymWHERE">********************************************************************************</span>
+                   *                                                                              *
+                   *                                                                              *
+                   * Save registers, set up NO and CN                                             *
+                   *                                                                              *
+                   ********************************************************************************
+cb15: 48           <span id="SymWHERE">WHERE</span>           pha                       ;Save registers on stack
+cb16: 8a                           txa
+cb17: 48                           pha
+cb18: 98                           tya
+cb19: 48                           pha
+cb1a: 08                           php
+cb1b: 86 35                        stx     <a href="#SymXSAVE">XSAVE</a>             ;Save input buffer index
+cb1d: ba                           tsx
+cb1e: 68                           pla
+cb1f: 68                           pla
+cb20: 68           <span id="SymLCB20">LCB20</span>           pla
+cb21: 68                           pla
+cb22: a8                           tay
+cb23: 68                           pla
+cb24: 68                           pla
+cb25: 9a                           txs
+cb26: aa                           tax
+cb27: 98                           tya
+cb28: 48                           pha
+cb29: 8a                           txa
+cb2a: 0a                           asl     A
+cb2b: 0a                           asl     A
+cb2c: 0a                           asl     A
+cb2d: 0a                           asl     A
+cb2e: a8                           tay
+cb2f: 8c f8 06                     sty     <a href="#SymSCRNHOLE5">SCRNHOLE5</a>
+cb32: 68                           pla
+cb33: 28                           plp
+cb34: 48                           pha
+cb35: 50 10                        bvc     <a href="#SymIO">IO</a>                ;Go to IO if not initial entry
+                   ********************************************************************************
+                   *                                                                              *
+                   * Basic initialize                                                             *
+                   *                                                                              *
+                   ********************************************************************************
+cb37: a9 10                        lda     #&lt;<a href="#SymINENTR">INENTR</a>
+cb39: 85 38                        sta     <a href="#SymMON_KSWL">MON_KSWL</a>
+cb3b: 86 39                        stx     <a href="#SymMON_KSWH">MON_KSWH</a>
+cb3d: a9 07                        lda     #&lt;<a href="#SymOUTENTR">OUTENTR</a>
+cb3f: 85 36                        sta     <a href="#SymMON_CSWL">MON_CSWL</a>
+cb41: 86 37                        stx     <a href="#SymMON_CSWH">MON_CSWH</a>
+cb43: 20 00 c8                     jsr     <a href="#SymSETUP">SETUP</a>
+cb46: 18                           clc
+cb47: 90 78        <span id="SymIO">IO</span>              bcc     <a href="#SymBASOUT">BASOUT</a>
+                   <span id="CSymBASINP">********************************************************************************</span>
+                   *                                                                              *
+                   * Basic input routine                                                          *
+                   *                                                                              *
+                   ********************************************************************************
+cb49: 68           <span id="SymBASINP">BASINP</span>          pla                       ;Pop stack
+cb4a: a4 35                        ldy     <a href="#SymXSAVE">XSAVE</a>             ;Get input buffer index
+cb4c: f0 22                        beq     <a href="#SymGETLN">GETLN</a>             ;If zero assume GETLN
+cb4e: 88                           dey
+cb4f: ad 78 06                     lda     <a href="#SymOLDCHAR">OLDCHAR</a>           ;Get last character from GETLN
+cb52: c9 88                        cmp     #$88              ;If BS assume GETLN
+cb54: f0 1a                        beq     <a href="#SymGETLN">GETLN</a>
+cb56: d9 00 02                     cmp     <a href="#SymIN">IN</a>,y
+cb59: f0 15                        beq     <a href="#SymGETLN">GETLN</a>
+cb5b: 49 20                        eor     #$20
+cb5d: d9 00 02                     cmp     <a href="#SymIN">IN</a>,y              ;If same as character in input
+cb60: d0 3e                        bne     <a href="#SymNTGETLN">NTGETLN</a>           ;buffer then assume GETLN
+cb62: ad 78 06                     lda     <a href="#SymOLDCHAR">OLDCHAR</a>           ;Get last character from GETLN
+cb65: 99 00 02                     sta     <a href="#SymIN">IN</a>,y              ;Fix input buffer
+cb68: b0 06                        bcs     <a href="#SymGETLN">GETLN</a>             ;Go to GETLN
+cb6a: 20 48 c8     <span id="SymESC">ESC</span>             jsr     <a href="#SymRDKEY">RDKEY</a>
+cb6d: 20 71 c9                     jsr     <a href="#SymLC971">LC971</a>
+cb70: a9 80        <span id="SymGETLN">GETLN</span>           lda     #$80              ;Set GETLN flag
+cb72: 20 f6 ca                     jsr     <a href="#SymFLGSET">FLGSET</a>
+cb75: 20 48 c8                     jsr     <a href="#SymRDKEY">RDKEY</a>             ;Get character from keyboard
+cb78: c9 9b                        cmp     #$9b              ;Check for escape
+cb7a: f0 ee                        beq     <a href="#SymESC">ESC</a>
+cb7c: c9 8d                        cmp     #$8d              ;Check for CR
+cb7e: d0 05                        bne     <a href="#SymNOTCR">NOTCR</a>             ;If not skip
+cb80: 48                           pha                       ;Save character
+cb81: 20 15 ca                     jsr     <a href="#SymCLREOL">CLREOL</a>            ;Clear to end of line
+cb84: 68                           pla                       ;Recover character
+cb85: c9 95        <span id="SymNOTCR">NOTCR</span>           cmp     #$95              ;Check for pick
+cb87: d0 12                        bne     <a href="#SymNOTPICK">NOTPICK</a>           ;If not skip
+cb89: bc b8 04                     ldy     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x      ;Get cursor horizontal position
+cb8c: 20 43 ca                     jsr     <a href="#SymPSNCALC">PSNCALC</a>           ;Set up screen address
+cb8f: b0 05                        bcs     <a href="#SymREAD1">READ1</a>             ;Read character from screen
+cb91: bd 00 cc                     lda     <a href="#SymDISP0">DISP0</a>,x
+cb94: 90 03                        bcc     <a href="#SymRSKIP">RSKIP</a>
+
+cb96: bd 00 cd     <span id="SymREAD1">READ1</span>           lda     <a href="#SymDISP1">DISP1</a>,x
+cb99: 09 80        <span id="SymRSKIP">RSKIP</span>           ora     #$80              ;Set high bit
+cb9b: 8d 78 06     <span id="SymNOTPICK">NOTPICK</span>         sta     <a href="#SymOLDCHAR">OLDCHAR</a>           ;Save character in OLDCHAR
+cb9e: d0 08                        bne     <a href="#SymDONE">DONE</a>              ;Exit
+
+cba0: 20 48 c8     <span id="SymNTGETLN">NTGETLN</span>         jsr     <a href="#SymRDKEY">RDKEY</a>             ;Get character from keyboard
+cba3: a0 00                        ldy     #$00              ;Clear OLDCHARacter
+cba5: 8c 78 06                     sty     <a href="#SymOLDCHAR">OLDCHAR</a>
+cba8: ba           <span id="SymDONE">DONE</span>            tsx                       ;Put character into stack
+cba9: e8                           inx
+cbaa: e8                           inx
+cbab: e8                           inx
+cbac: 9d 00 01                     sta     $0100,x
+cbaf: ae 78 07                     ldx     <a href="#SymSCRNHOLE6">SCRNHOLE6</a>
+cbb2: a9 00        <span id="SymOUTDONE1">OUTDONE1</span>        lda     #$00              ;Set CH = 00
+cbb4: 85 24                        sta     <a href="#SymMON_CH">MON_CH</a>
+cbb6: bd 38 05     <span id="SymOUTDONE">OUTDONE</span>         lda     <a href="#SymCVERT_BASE">CVERT_BASE</a>,x      ;Set CV = CVERT
+cbb9: 85 25                        sta     <a href="#SymMON_CV">MON_CV</a>
+cbbb: 68                           pla
+cbbc: a8                           tay
+cbbd: 68                           pla
+cbbe: aa                           tax
+cbbf: 68                           pla
+cbc0: 60                           rts
+
+                   <span id="CSymBASOUT">********************************************************************************</span>
+                   *                                                                              *
+                   * Primary Basic output routine                                                 *
+                   *                                                                              *
+                   ********************************************************************************
+cbc1: 68           <span id="SymBASOUT">BASOUT</span>          pla                       ;Recover character
+cbc2: bc 38 07                     ldy     <a href="#SymFLAGS_BASE">FLAGS_BASE</a>,x      ;Check GETLN flags
+cbc5: 10 08                        bpl     <a href="#SymBOUT">BOUT</a>              ;If clear then skip
+cbc7: ac 78 06                     ldy     <a href="#SymOLDCHAR">OLDCHAR</a>           ;Get last character from GETLN
+cbca: c0 e0                        cpy     #$e0              ;If it is lower case then use it
+cbcc: 90 01                        bcc     <a href="#SymBOUT">BOUT</a>
+cbce: 98                           tya
+cbcf: 20 a3 c8     <span id="SymBOUT">BOUT</span>            jsr     <a href="#SymBASOUT1">BASOUT1</a>           ;Output character
+cbd2: a9 7f                        lda     #$7f              ;Clear the GETLN flag
+cbd4: 20 e9 ca                     jsr     <a href="#SymFLGCLR">FLGCLR</a>
+cbd7: bd b8 04                     lda     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x
+cbda: f0 06                        beq     <a href="#SymFIXCH">FIXCH</a>
+cbdc: e9 47                        sbc     #$47
+cbde: 90 d2                        bcc     <a href="#SymOUTDONE1">OUTDONE1</a>
+cbe0: 69 1f                        adc     #$1f
+cbe2: 18           <span id="SymFIXCH">FIXCH</span>           clc
+cbe3: 85 24                        sta     <a href="#SymMON_CH">MON_CH</a>
+cbe5: 90 cf                        bcc     <a href="#SymOUTDONE">OUTDONE</a>
+
+                   <span id="CSymSTPLST">********************************************************************************</span>
+                   *                                                                              *
+                   * Stop list routine                                                            *
+                   *                                                                              *
+                   ********************************************************************************
+cbe7: ad 00 c0     <span id="SymSTPLST">STPLST</span>          lda     <a href="#SymKBD">KBD</a>
+cbea: c9 93                        cmp     #$93
+cbec: d0 0f                        bne     <a href="#SymSTPDONE">STPDONE</a>
+cbee: 2c 10 c0                     bit     <a href="#SymKBDSTRB">KBDSTRB</a>
+cbf1: ad 00 c0     <span id="SymSTPLOOP">STPLOOP</span>         lda     <a href="#SymKBD">KBD</a>
+cbf4: 10 fb                        bpl     <a href="#SymSTPLOOP">STPLOOP</a>
+cbf6: c9 83                        cmp     #$83
+cbf8: f0 03                        beq     <a href="#SymSTPDONE">STPDONE</a>
+cbfa: 2c 10 c0                     bit     <a href="#SymKBDSTRB">KBDSTRB</a>
+cbfd: 38           <span id="SymSTPDONE">STPDONE</span>         sec
+cbfe: 60                           rts
+
+cbff: 00                           .dd1    $00
+                                   .adrend ↑ $c800
+</pre>
+
+
+</div>
+
+<!-- SymbolTable is optional; remove this entire section from the template if you don't want it -->
+<div id="symbol-table">
+    <h2>Symbol Table</h2>
+<p>No exported symbols found.</p>
+
+</div>
+
+<div id="footer">
+    <hr/>
+    <p>HTML generated by <a href="https://6502bench.com/">6502bench SourceGen</a> v1.10.2
+    on 2026/08/12 <!--18:13:13 -07:00--></p>
+    <p>Expression style: Common</p>
+    <!-- parameters: cols=16,8,18,100;extraCols=Address,Bytes;byteSpc=True;commaBulk=True;nonuPfx='@';varPfx='';flcd='*';labelBrk=False;notes=False;gfx=True;opWrap=64;upper=AS -->
+</div>
+
+</body>
+</html>

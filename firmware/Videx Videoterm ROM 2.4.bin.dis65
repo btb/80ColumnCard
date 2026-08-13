@@ -1,6 +1,6 @@
 ﻿### 6502bench SourceGen dis65 v1.0 ###
 {
-"_ContentVersion":5,
+"_ContentVersion":7,
 "FileDataLength":1024,
 "FileDataCrc32":-1142703320,
 "ProjectProps":{
@@ -28,7 +28,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"temp",
 "HasWidth":false,
@@ -45,7 +46,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"Screen base address high",
 "HasWidth":false,
@@ -62,7 +64,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"Screen base address low",
 "HasWidth":false,
@@ -79,7 +82,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"I/O byte for Pascal entries",
 "HasWidth":false,
@@ -96,7 +100,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"Cursor horizontal position",
 "HasWidth":false,
@@ -113,7 +118,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"temp",
 "HasWidth":false,
@@ -130,7 +136,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"Cursor vertical position",
 "HasWidth":false,
@@ -147,7 +154,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"CRTC Address Register",
 "HasWidth":false,
@@ -164,7 +172,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"CRTC Data Registers",
 "HasWidth":false,
@@ -181,7 +190,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"",
 "HasWidth":false,
@@ -198,7 +208,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"",
 "HasWidth":false,
@@ -215,7 +226,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"Video set up flags",
 "HasWidth":false,
@@ -232,7 +244,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"",
 "HasWidth":false,
@@ -249,7 +262,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"",
 "HasWidth":false,
@@ -266,7 +280,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"temp",
 "HasWidth":false,
@@ -283,7 +298,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"Power off and lead in counter",
 "HasWidth":false,
@@ -300,7 +316,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"Screen start address",
 "HasWidth":false,
@@ -317,7 +334,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"temp",
 "HasWidth":false,
@@ -334,7 +352,8 @@
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "Comment":"not used by monitor?",
 "HasWidth":false,
@@ -351,6 +370,8 @@
 "Addr":51200,
 "Length":1024,
 "PreLabel":"",
+"DisallowInward":false,
+"DisallowOutward":false,
 "IsRelative":false}],
 "TypeHints":[{
 "Low":0,
@@ -394,11 +415,6 @@
 
 {
 "Low":774,
-"High":774,
-"Hint":"InlineData"},
-
-{
-"Low":775,
 "High":775,
 "Hint":"Code"},
 
@@ -427,6 +443,9 @@
 "High":818,
 "Hint":"Code"}],
 "StatusFlagOverrides":{
+},
+
+"MiscFlags":{
 },
 
 "Comments":{
@@ -643,156 +662,182 @@
 "LongComments":{
 "-2147483647":{
 "Text":"\r\nVideoterm Interface\r\nFirmware v. 2.4\r\n\r\nWritten by Darrel Aldrich\r\n(c) 1981 Videx\r\n\r\n*\r\n6502bench SourceGen v1.8.4-dev1",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "0":{
 "Text":"\r\nSet up CRTC and clear screen\r\n\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "68":{
 "Text":"\r\nGet character from keyboard",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "177":{
 "Text":"\r\nSecondary basic output routine\r\n\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "241":{
 "Text":"\r\nPerform escape functions\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "295":{
 "Text":"Store character on screen and advance cursor",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "329":{
 "Text":"Clear to end of page\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "353":{
 "Text":"Clear screen\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "359":{
 "Text":"Home cursor",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "380":{
 "Text":"Move cursor up",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "423":{
 "Text":"\r\nPascal output entry point\r\n\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "432":{
 "Text":"\r\nCR LF routine\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "448":{
 "Text":"\r\n",
+"IsFancy":false,
 "BoxMode":false,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "495":{
 "Text":"\r\n",
+"IsFancy":false,
 "BoxMode":false,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "506":{
 "Text":"\r\nBasic initial I/O entry point\r\n\r\n\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "601":{
 "Text":"Calculate screen address and switch in correct page\r\n\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "625":{
 "Text":"\r\nPut a character at CVERT, CHORZ\r\n\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "649":{
 "Text":"\r\nGeneral output routine\r\n\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "719":{
 "Text":"\r\nStop list routine\r\n\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "768":{
 "Text":"\r\n\r\n\r\n\r\nBasic initial I/O entry point\r\n\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "818":{
 "Text":"Basic input entry point\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "825":{
 "Text":"\r\n\r\nSave registers, set up NO and CN\r\n\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "844":{
 "Text":"\r\nBasic initialize\r\n\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "862":{
 "Text":"\r\nBasic input routine\r\n\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "973":{
 "Text":"\r\nPrimary Basic output routine\r\n\r\n",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0},
 
 "161":{
 "Text":"These are the CRTC initialization values, each one sent to a different internal register.",
+"IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
 "BackgroundColor":0}},
@@ -1576,133 +1621,155 @@
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"HighAscii",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "134":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"HighAscii",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "138":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"HighAscii",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "140":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"HighAscii",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "148":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"HighAscii",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "161":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "162":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "163":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "164":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "165":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "166":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "167":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "168":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "169":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "170":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "171":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "172":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "173":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "174":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "175":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "176":{
 "Length":1,
 "Format":"NumericLE",
 "SubFormat":"Hex",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "217":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"Decimal",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "248":{
 "Length":2,
@@ -1710,73 +1777,86 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"BELL",
-"Part":"High"}},
+"Part":"High"},
+
+"Extra":null},
 
 "266":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"Decimal",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "298":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"Decimal",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "324":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"Decimal",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "347":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"Decimal",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "375":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"Decimal",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "399":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"HighAscii",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "410":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"HighAscii",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "441":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"Decimal",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "483":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"Decimal",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "495":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"HighAscii",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "506":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"HighAscii",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "568":{
 "Length":2,
@@ -1784,7 +1864,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"BELL",
-"Part":"High"}},
+"Part":"High"},
+
+"Extra":null},
 
 "571":{
 "Length":3,
@@ -1792,7 +1874,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"CTLTBL",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "576":{
 "Length":1,
@@ -1800,7 +1884,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"BELL",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "577":{
 "Length":1,
@@ -1808,7 +1894,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"BS",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "578":{
 "Length":1,
@@ -1816,7 +1904,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"RTS3",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "579":{
 "Length":1,
@@ -1824,7 +1914,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"LF",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "580":{
 "Length":1,
@@ -1832,7 +1924,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"CLREOP",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "581":{
 "Length":1,
@@ -1840,7 +1934,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"CLSCRN",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "582":{
 "Length":1,
@@ -1848,7 +1944,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"CRLF",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "583":{
 "Length":1,
@@ -1856,7 +1954,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"LOLITE",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "584":{
 "Length":1,
@@ -1864,7 +1964,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"HILITE",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "585":{
 "Length":1,
@@ -1872,7 +1974,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"RTS3",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "586":{
 "Length":1,
@@ -1880,7 +1984,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"RTS3",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "587":{
 "Length":1,
@@ -1888,7 +1994,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"RTS3",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "588":{
 "Length":1,
@@ -1896,7 +2004,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"RTS3",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "589":{
 "Length":1,
@@ -1904,7 +2014,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"RTS3",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "590":{
 "Length":1,
@@ -1912,7 +2024,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"RTS3",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "591":{
 "Length":1,
@@ -1920,7 +2034,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"RTS3",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "592":{
 "Length":1,
@@ -1928,7 +2044,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"RTS3",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "593":{
 "Length":1,
@@ -1936,7 +2054,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"RTS3",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "594":{
 "Length":1,
@@ -1944,7 +2064,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"HOME",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "595":{
 "Length":1,
@@ -1952,7 +2074,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"LEADIN",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "596":{
 "Length":1,
@@ -1960,7 +2084,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"RTS3",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "597":{
 "Length":1,
@@ -1968,7 +2094,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"ADVANCE",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "598":{
 "Length":1,
@@ -1976,7 +2104,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"CLREOL",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "599":{
 "Length":1,
@@ -1984,7 +2114,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"GOXY1",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "600":{
 "Length":1,
@@ -1992,7 +2124,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"UP",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "640":{
 "Length":3,
@@ -2000,19 +2134,23 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"DISP0",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "694":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"Decimal",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "704":{
 "Length":2,
 "Format":"NumericLE",
 "SubFormat":"Decimal",
-"SymbolRef":null},
+"SymbolRef":null,
+"Extra":null},
 
 "743":{
 "Length":3,
@@ -2020,7 +2158,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"XLTBL",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "781":{
 "Length":1,
@@ -2028,7 +2168,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"INIT",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "782":{
 "Length":1,
@@ -2036,7 +2178,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"READ",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "783":{
 "Length":1,
@@ -2044,7 +2188,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"WRITE",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "784":{
 "Length":1,
@@ -2052,7 +2198,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"STATUS",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "844":{
 "Length":2,
@@ -2060,7 +2208,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"INENTR",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "850":{
 "Length":2,
@@ -2068,7 +2218,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"OUTENTR",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "868":{
 "Length":3,
@@ -2076,7 +2228,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"OLDCHAR",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "1010":{
 "Length":1,
@@ -2084,7 +2238,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"CLSCRN",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "1011":{
 "Length":1,
@@ -2092,7 +2248,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"ADVANCE",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "1012":{
 "Length":1,
@@ -2100,7 +2258,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"BS",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "1013":{
 "Length":1,
@@ -2108,7 +2268,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"LF",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "1014":{
 "Length":1,
@@ -2116,7 +2278,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"UP",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "1015":{
 "Length":1,
@@ -2124,7 +2288,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"CLREOL",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "1016":{
 "Length":1,
@@ -2132,7 +2298,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"CLREOP",
-"Part":"Low"}},
+"Part":"Low"},
+
+"Extra":null},
 
 "1017":{
 "Length":1,
@@ -2140,7 +2308,9 @@
 "SubFormat":"Symbol",
 "SymbolRef":{
 "Label":"HOME",
-"Part":"Low"}}},
+"Part":"Low"},
+
+"Extra":null}},
 
 "LvTables":{
 },

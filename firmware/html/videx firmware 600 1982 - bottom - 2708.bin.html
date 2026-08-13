@@ -6,21 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="SGStyle.css"/>
 
-    <meta name="description" content="SourceGen-generated disassembly of Videx Videoterm ROM 2.4.bin"/>
-    <title>Videx Videoterm ROM 2.4.bin Disassembly</title>
+    <meta name="description" content="SourceGen-generated disassembly of videx firmware 600 1982 - bottom - 2708.bin"/>
+    <title>videx firmware 600 1982 - bottom - 2708.bin Disassembly</title>
 </head>
 
 <body>
 
 <p style="font-size:smaller;"><a href="./">(back to project page)</a></p>
-<h1>Videx Videoterm ROM 2.4.bin Disassembly</h1>
+<h1>videx firmware 600 1982 - bottom - 2708.bin Disassembly</h1>
 
 <div id="code-lines">
     <!-- The CodeLines marker is not optional, and may only appear once -->
 <pre>                   ********************************************************************************
                    *                                                                              *
                    * Videoterm Interface                                                          *
-                   * Firmware v. 2.4                                                              *
+                   * Firmware v. [600]                                                            *
                    *                                                                              *
                    * Written by Darrel Aldrich                                                    *
                    * (c) 1981 Videx                                                               *
@@ -76,23 +76,25 @@
 c800: ad 7b 07     <span id="SymSETUP">SETUP</span>           lda     <a href="#SymPOFF">POFF</a>              ;Get power off flag
 c803: 29 f8                        and     #$f8              ;Strip off lead in counters
 c805: c9 30                        cmp     #$30              ;Has power been turned off?
-c807: f0 21                        beq     <a href="#SymSETEXIT">SETEXIT</a>
+c807: f0 20                        beq     <a href="#SymSETEXIT">SETEXIT</a>
 c809: a9 30        <span id="SymRESTART">RESTART</span>         lda     #$30
 c80b: 8d 7b 07                     sta     <a href="#SymPOFF">POFF</a>              ;Set defaults for flags
 c80e: 8d fb 07                     sta     <a href="#SymFLAGS">FLAGS</a>
 c811: a9 00                        lda     #$00
 c813: 8d fb 06                     sta     <a href="#SymSTART">START</a>
 c816: 20 61 c9                     jsr     <a href="#SymCLSCRN">CLSCRN</a>
-c819: a2 00                        ldx     #$00
+c819: a2 0f                        ldx     #$0f
 c81b: 8a           <span id="SymLOOP">LOOP</span>            txa
 c81c: 8d b0 c0                     sta     <a href="#SymDEV0">DEV0</a>              ;For the CRTC address
 c81f: bd a1 c8                     lda     <a href="#SymTABLE">TABLE</a>,x           ;Get parameter
 c822: 8d b1 c0                     sta     <a href="#SymDEV1">DEV1</a>              ;Store into CRTC
-c825: e8                           inx
-c826: e0 10                        cpx     #$10
-c828: d0 f1                        bne     <a href="#SymLOOP">LOOP</a>              ;Continue loop until done
-c82a: 8d 59 c0     <span id="SymSETEXIT">SETEXIT</span>         sta     <a href="#SymCLRAN0">CLRAN0</a>
-c82d: 60                           rts
+c825: ca                           dex
+c826: 10 f3                        bpl     <a href="#SymLOOP">LOOP</a>              ;Continue loop until done
+c828: e8                           inx
+c829: 8d 59 c0     <span id="SymSETEXIT">SETEXIT</span>         sta     <a href="#SymCLRAN0">CLRAN0</a>
+c82c: 60                           rts
+
+c82d: ea                           .dd1    $ea
 
 c82e: ad fb 07     <span id="SymEXIT">EXIT</span>            lda     <a href="#SymFLAGS">FLAGS</a>
 c831: 29 08                        and     #$08
@@ -164,17 +166,17 @@ c8a0: 60                           rts
                    * These are the CRTC initialization values, each one sent to a different       *
                    * internal register.                                                           *
                    ********************************************************************************
-c8a1: 7a           <span id="SymTABLE">TABLE</span>           .dd1    $7a               ;R0 - Horizontal Total Register
+c8a1: 7b           <span id="SymTABLE">TABLE</span>           .dd1    $7b               ;R0 - Horizontal Total Register
 c8a2: 50                           .dd1    $50               ;R1 - Horizontal Displayed Register
-c8a3: 5e                           .dd1    $5e               ;R2 - Horizontal Sync Position Register
-c8a4: 2f                           .dd1    $2f               ;R3 - Horizontal Sync Width Register
-c8a5: 22                           .dd1    $22               ;R4 - Vertical Total Register
-c8a6: 00                           .dd1    $00               ;R5 - Vertical Total Adjust Register
+c8a3: 5f                           .dd1    $5f               ;R2 - Horizontal Sync Position Register
+c8a4: 19                           .dd1    $19               ;R3 - Horizontal Sync Width Register
+c8a5: 1f                           .dd1    $1f               ;R4 - Vertical Total Register
+c8a6: 08                           .dd1    $08               ;R5 - Vertical Total Adjust Register
 c8a7: 18                           .dd1    $18               ;R6 - Vertical Displayed Register
-c8a8: 1d                           .dd1    $1d               ;R7 - Vertical Sync Position Register
+c8a8: 1c                           .dd1    $1c               ;R7 - Vertical Sync Position Register
 c8a9: 00                           .dd1    $00               ;R8 - Interlace Mode Register
-c8aa: 08                           .dd1    $08               ;R9 - Maximum Scan Line Register
-c8ab: e0                           .dd1    $e0               ;R10 - Cursor End Register
+c8aa: 07                           .dd1    $07               ;R9 - Maximum Scan Line Register
+c8ab: c0                           .dd1    $c0               ;R10 - Cursor End Register
 c8ac: 08                           .dd1    $08               ;R11 - Cursor End Register
 c8ad: 00                           .dd1    $00               ;R12 - Start Address Register (H)
 c8ae: 00                           .dd1    $00               ;R13 - Start Address Register (L)
@@ -572,7 +574,7 @@ caff: ea                           nop
 cb00: 2c cb ff                     bit     <a href="#SymIORTS">IORTS</a>             ;Set VFlag on initial entry
 cb03: 70 31                        bvs     <a href="#SymENTR">ENTR</a>
 cb05: 38           <span id="SymINFAKE">INFAKE</span>          sec                       ;Fake input entry C=0
-cb06: 90                           bcc ▼   <a href="#SymLCB1F">LCB1F</a>+1
+cb06: 90                           bcc ▼   $cb20             ;[branch never taken]
 cb07: 18           <span id="SymOUTENTR">OUTENTR</span>         clc                       ;Output entry C=1
 cb08: b8                           clv
 cb09: 50 2b                        bvc     <a href="#SymENTR">ENTR</a>
@@ -592,7 +594,7 @@ cb19: a2 00                        ldx     #$00
 cb1b: 60                           rts
 
 cb1c: 20 a7 c9     <span id="SymWRITE">WRITE</span>           jsr     <a href="#SymPSOUT">PSOUT</a>
-cb1f: a2 00        <span id="SymLCB1F">LCB1F</span>           ldx     #$00
+cb1f: a2 00                        ldx     #$00
 cb21: 60                           rts
 
 cb22: c9 00        <span id="SymSTATUS">STATUS</span>          cmp     #$00
@@ -754,7 +756,7 @@ cbff: ea                           .dd1    $ea
 <div id="footer">
     <hr/>
     <p>HTML generated by <a href="https://6502bench.com/">6502bench SourceGen</a> v1.10.2
-    on 2026/08/12 <!--18:12:07 -07:00--></p>
+    on 2026/08/12 <!--18:13:45 -07:00--></p>
     <p>Expression style: Common</p>
     <!-- parameters: cols=16,8,18,100;extraCols=Address,Bytes;byteSpc=True;commaBulk=True;nonuPfx='@';varPfx='';flcd='*';labelBrk=False;notes=False;gfx=True;opWrap=64;upper=AS -->
 </div>

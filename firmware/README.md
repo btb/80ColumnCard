@@ -6,9 +6,13 @@
 [Disassembly](https://btb.github.io/80ColumnCard/firmware/html/Videx%20Videoterm%20ROM%202.4.bin.html)
 of that code was done using [6502bench](https://6502bench.com), adding comments and symbols as found in the Videx manual.
 
-[videx firmware 600 1982 - bottom - 2708.bin](videx%20firmware%20600%201982%20-%20bottom%20-%202708.bin) is the Videx firmware, version 2.?. It's very similar to version 2.4.
+[videx firmware 600 1982 - bottom - 2708.bin](videx%20firmware%20600%201982%20-%20bottom%20-%202708.bin)
+([Disassembly](https://btb.github.io/80ColumnCard/firmware/html/videx%20firmware%20600%201982%20-%20bottom%20-%202708.bin.html))
+is the Videx firmware, version 2.?. It's very similar to version 2.4.
 
-[VIDEX FW 2.1 1981 2708.bin](VIDEX%20FW%202.1%201981%202708.bin) is the Videx firmware, version 2.1. This firmware does not support the soft video switch, and it is able to work in any slot.
+[VIDEX FW 2.1 1981 2708.bin](VIDEX%20FW%202.1%201981%202708.bin)
+([Disassembly](https://btb.github.io/80ColumnCard/firmware/html/VIDEX%20FW%202.1%201981%202708.bin.html))
+is the Videx firmware, version 2.1. This firmware does not support the soft video switch, and it is able to work in any slot.
 
 [videx clone - rom 1 - firmware - bottom row.bin](videx%20clone%20-%20rom%201%20-%20firmware%20-%20bottom%20row.bin) 
 ([Disassembly](https://btb.github.io/80ColumnCard/firmware/html/videx%20clone%20-%20rom%201%20-%20firmware%20-%20bottom%20row.bin.html))
