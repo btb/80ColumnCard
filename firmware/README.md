@@ -1,5 +1,4 @@
-
-80-Column Card Firmware
+# 80-Column Card Firmware
 
 [Videx Videoterm ROM 2.4.bin](Videx%20Videoterm%20ROM%202.4.bin) is a copy of the Videx's firmware, as found on the Apple II Documentation Project.
 
