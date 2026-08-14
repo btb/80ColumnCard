@@ -50,7 +50,7 @@
                    <span id="SymSTART_BASE">START_BASE</span>      .eq     $0638             ;Screen start address
                    <span id="SymOLDCHAR">OLDCHAR</span>         .eq     $0678             ;temp
                    <span id="SymPOFF_BASE">POFF_BASE</span>       .eq     $06b8             ;Power off and lead in counter
-                   <span id="SymSCRNHOLE5">SCRNHOLE5</span>       .eq     $06f8  {addr/8}   ;text page 1 screen holes
+                   <span id="SymSLOTNUM">SLOTNUM</span>         .eq     $06f8
                    <span id="SymFLAGS_BASE">FLAGS_BASE</span>      .eq     $0738             ;Video set up flags
                    <span id="SymSCRNHOLE6">SCRNHOLE6</span>       .eq     $0778  {addr/8}   ;text page 1 screen holes
                    <span id="SymKBD">KBD</span>             .eq     $c000             ;R last key pressed + 128
@@ -198,7 +198,7 @@ c8ba: 9d b8 04                     sta     <a href="#SymCHORZ_BASE">CHORZ_BASE</
 c8bd: 20 38 c8     <span id="SymPSCLOUT">PSCLOUT</span>         jsr     <a href="#SymSETBTM">SETBTM</a>
 c8c0: bd b8 05                     lda     <a href="#SymBYTE_BASE">BYTE_BASE</a>,x       ;Get character
 c8c3: 20 84 ca                     jsr     <a href="#SymOUTPT1">OUTPT1</a>            ;Output character
-c8c6: ac f8 06     <span id="SymCSRMOV">CSRMOV</span>          ldy     <a href="#SymSCRNHOLE5">SCRNHOLE5</a>
+c8c6: ac f8 06     <span id="SymCSRMOV">CSRMOV</span>          ldy     <a href="#SymSLOTNUM">SLOTNUM</a>
 c8c9: a9 0f                        lda     #$0f              ;Set up CRTC address
 c8cb: 99 80 c0                     sta     <a href="#SymDEV0_BASE">DEV0_BASE</a>,y       ;for cursor low address
 c8ce: bd b8 04                     lda     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x      ;Calculate address
@@ -348,7 +348,7 @@ c9c4: c5 23                        cmp     <a href="#SymMON_WNDBTM">MON_WNDBTM</
 c9c6: 90 5e                        bcc     <a href="#SymVTABZ">VTABZ</a>             ;If not move cursor
 c9c8: de 38 05                     dec     <a href="#SymCVERT_BASE">CVERT_BASE</a>,x      ;If so decrement cursor vertical
 c9cb: 18                           clc
-c9cc: ac f8 06                     ldy     <a href="#SymSCRNHOLE5">SCRNHOLE5</a>
+c9cc: ac f8 06                     ldy     <a href="#SymSLOTNUM">SLOTNUM</a>
 c9cf: bd 38 06                     lda     <a href="#SymSTART_BASE">START_BASE</a>,x      ;Increment the start address
 c9d2: 69 05                        adc     #$05              ;by one line
 c9d4: 29 7f                        and     #$7f
@@ -369,27 +369,35 @@ c9f6: 20 26 ca                     jsr     <a href="#SymVTABZ">VTABZ</a>        
 c9f9: a0 00                        ldy     #$00
 c9fb: 20 18 ca                     jsr     <a href="#SymCLEOLZ">CLEOLZ</a>            ;Clear bottom line
 c9fe: b0 23                        bcs     <a href="#SymVTAB">VTAB</a>              ;Move cursor back
-ca00: 2c cb ff                     bit     <a href="#SymIORTS">IORTS</a>
-ca03: 70 04                        bvs     <a href="#SymLCA09">LCA09</a>
-ca05: 38                           sec
-ca06: 90 18                        bcc     <a href="#SymBCLEOL2">BCLEOL2</a>
+                   ********************************************************************************
+                   *                                                                              *
+                   * Basic initial I/O entry point                                                *
+                   *                                                                              *
+                   *                                                                              *
+                   ********************************************************************************
+ca00: 2c cb ff                     bit     <a href="#SymIORTS">IORTS</a>             ;Set VFlag on initial entry
+ca03: 70 04                        bvs     <a href="#SymENTR2">ENTR2</a>
+ca05: 38           <span id="SymINFAKE2">INFAKE2</span>         sec
+ca06: 90                           bcc ▼   $ca20
+ca07: 18                           clc
 ca08: b8                           clv
-ca09: 8d ff cf     <span id="SymLCA09">LCA09</span>           sta     <a href="#SymCLRROM">CLRROM</a>
+ca09: 8d ff cf     <span id="SymENTR2">ENTR2</span>           sta     <a href="#SymCLRROM">CLRROM</a>
 ca0c: 20 15 cb                     jsr     <a href="#SymWHERE">WHERE</a>
 ca0f: 60                           rts
 
-ca10: 91                           .dd1    $91
-ca11: 28                           .dd1    $28
-ca12: 38                           .dd1    $38
-ca13: b0                           .dd1    $b0
-ca14: f0                           .dd1    $f0
+                   ********************************************************************************
+                   * Basic input entry point                                                      *
+                   ********************************************************************************
+ca10: 91 28                        sta     (<a href="#SymMON_BASL">MON_BASL</a>),y      ;Replace flashing cursor
+ca12: 38                           sec
+ca13: b0 f0                        bcs     <a href="#SymINFAKE2">INFAKE2</a>
 
 ca15: bc b8 04     <span id="SymCLREOL">CLREOL</span>          ldy     <a href="#SymCHORZ_BASE">CHORZ_BASE</a>,x      ;Put cursor horizontal into Y
 ca18: a9 a0        <span id="SymCLEOLZ">CLEOLZ</span>          lda     #$a0              ;Use a space
 ca1a: 20 69 ca     <span id="SymCLEOL2">CLEOL2</span>          jsr     <a href="#SymCHRPUT">CHRPUT</a>            ;Put character on screen
 ca1d: c8                           iny
 ca1e: c0 50                        cpy     #80               ;Continue until
-ca20: 90 f8        <span id="SymBCLEOL2">BCLEOL2</span>         bcc     <a href="#SymCLEOL2">CLEOL2</a>            ;Y &gt;= 80
+ca20: 90 f8                        bcc     <a href="#SymCLEOL2">CLEOL2</a>            ;Y &gt;= 80
 ca22: 60                           rts
 
 ca23: bd 38 05     <span id="SymVTAB">VTAB</span>            lda     <a href="#SymCVERT_BASE">CVERT_BASE</a>,x      ;Get cursor vertical
@@ -429,7 +437,7 @@ ca54: 08                           php
 ca55: 29 03                        and     #$03              ;Use bit 0 and 1 for paging
 ca57: 0a                           asl     A
 ca58: 0a                           asl     A
-ca59: 0d f8 06                     ora     <a href="#SymSCRNHOLE5">SCRNHOLE5</a>
+ca59: 0d f8 06                     ora     <a href="#SymSLOTNUM">SLOTNUM</a>
 ca5c: 84 35                        sty     <a href="#SymXSAVE">XSAVE</a>
 ca5e: a8                           tay
 ca5f: b9 80 c0                     lda     <a href="#SymDEV0_BASE">DEV0_BASE</a>,y       ;Set correct screen page
@@ -466,7 +474,7 @@ ca83: 60                           rts
                    *                                                                              *
                    ********************************************************************************
 ca84: 48           <span id="SymOUTPT1">OUTPT1</span>          pha                       ;Save character
-ca85: ac f8 06                     ldy     <a href="#SymSCRNHOLE5">SCRNHOLE5</a>
+ca85: ac f8 06                     ldy     <a href="#SymSLOTNUM">SLOTNUM</a>
 ca88: 20 e7 cb                     jsr     <a href="#SymSTPLST">STPLST</a>
 ca8b: bd b8 06                     lda     <a href="#SymPOFF_BASE">POFF_BASE</a>,x
 ca8e: 29 07                        and     #$07              ;Check for lead in
@@ -586,7 +594,7 @@ cb2b: 0a                           asl     A
 cb2c: 0a                           asl     A
 cb2d: 0a                           asl     A
 cb2e: a8                           tay
-cb2f: 8c f8 06                     sty     <a href="#SymSCRNHOLE5">SCRNHOLE5</a>
+cb2f: 8c f8 06                     sty     <a href="#SymSLOTNUM">SLOTNUM</a>
 cb32: 68                           pla
 cb33: 28                           plp
 cb34: 48                           pha
@@ -728,7 +736,7 @@ cbff: 00                           .dd1    $00
 <div id="footer">
     <hr/>
     <p>HTML generated by <a href="https://6502bench.com/">6502bench SourceGen</a> v1.10.2
-    on 2026/08/12 <!--18:13:13 -07:00--></p>
+    on 2026/08/14 <!--02:24:20 -07:00--></p>
     <p>Expression style: Common</p>
     <!-- parameters: cols=16,8,18,100;extraCols=Address,Bytes;byteSpc=True;commaBulk=True;nonuPfx='@';varPfx='';flcd='*';labelBrk=False;notes=False;gfx=True;opWrap=64;upper=AS -->
 </div>

@@ -292,6 +292,24 @@
 "Type":"ExternalAddr",
 "LabelAnno":"None"},
 
+"SLOTNUM":{
+"DataDescriptor":{
+"Length":1,
+"Format":"NumericLE",
+"SubFormat":"Hex",
+"SymbolRef":null,
+"Extra":null},
+
+"Comment":"",
+"HasWidth":false,
+"Direction":"ReadWrite",
+"MultiMask":null,
+"Label":"SLOTNUM",
+"Value":1784,
+"Source":"Project",
+"Type":"ExternalAddr",
+"LabelAnno":"None"},
+
 "START_BASE":{
 "DataDescriptor":{
 "Length":1,
@@ -370,6 +388,16 @@
 "Hint":"InlineData"},
 
 {
+"Low":518,
+"High":519,
+"Hint":"Code"},
+
+{
+"Low":528,
+"High":528,
+"Hint":"Code"},
+
+{
 "Low":768,
 "High":768,
 "Hint":"Code"},
@@ -387,7 +415,7 @@
 },
 
 "MiscFlags":{
-},
+"518":1},
 
 "Comments":{
 "0":"Get power off flag",
@@ -487,6 +515,8 @@
 "502":"Calculate base address",
 "507":"Clear bottom line",
 "510":"Move cursor back",
+"512":"Set VFlag on initial entry",
+"528":"Replace flashing cursor",
 "533":"Put cursor horizontal into Y",
 "536":"Use a space",
 "538":"Put character on screen",
@@ -742,6 +772,20 @@
 
 "999":{
 "Text":"\r\nStop list routine\r\n\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"512":{
+"Text":"\r\nBasic initial I/O entry point\r\n\r\n\r\n",
+"IsFancy":false,
+"BoxMode":true,
+"MaxWidth":80,
+"BackgroundColor":0},
+
+"528":{
+"Text":"Basic input entry point\r\n",
 "IsFancy":false,
 "BoxMode":true,
 "MaxWidth":80,
@@ -1332,9 +1376,16 @@
 "Type":"GlobalAddr",
 "LabelAnno":"None"},
 
-"544":{
-"Label":"BCLEOL2",
-"Value":51744,
+"517":{
+"Label":"INFAKE2",
+"Value":51717,
+"Source":"User",
+"Type":"GlobalAddr",
+"LabelAnno":"None"},
+
+"521":{
+"Label":"ENTR2",
+"Value":51721,
 "Source":"User",
 "Type":"GlobalAddr",
 "LabelAnno":"None"}},
